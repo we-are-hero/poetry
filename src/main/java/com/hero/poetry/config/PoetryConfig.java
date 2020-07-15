@@ -7,6 +7,6 @@ import org.springframework.context.annotation.Configuration;
  * 项目注解配置
  */
 @Configuration
-@MapperScan("com.hero.poetry")
+@MapperScan("com.hero.poetry.mapper")
 public class PoetryConfig {
 }

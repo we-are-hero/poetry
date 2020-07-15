@@ -1,22 +1,27 @@
 package com.hero.poetry.controller;
 
 import com.hero.poetry.common.utils.R;
+import com.hero.poetry.service.RankService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
 @Api(description ="排名管理")
 @RequestMapping("/poetry/rank")
 @RestController
 public class RankController {
-    @ApiOperation("获取当前段位")
-    @GetMapping("/getRank")
-    public R getRank(){
+    private final RankService rankService;
 
-        return R.ok();
+    public RankController(RankService rankService) {
+        this.rankService = rankService;
+    }
+
+    @ApiOperation("根据用户id获取当前段位")
+    @GetMapping("/getRankByUserId/{userId}")
+    public R getRankByUserId(@PathVariable String userId){
+        String rank = rankService.getRank(userId);
+        return R.ok().data("list",rank);
     }
 }

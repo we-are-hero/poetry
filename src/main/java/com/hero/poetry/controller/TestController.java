@@ -23,7 +23,7 @@ public class TestController {
         for (int i = 0; i < 10; i++) {
             list.add(i);
         }
-        return R.ok().data("list",list);
+        return R.ok().data("list",list);//所有Controller返回R类型即可,数据data用 "list" 为键,数据复杂封装成类即可
     }
 
     @GetMapping("test2")
