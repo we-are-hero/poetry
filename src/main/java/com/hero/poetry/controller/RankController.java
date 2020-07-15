@@ -1,6 +1,7 @@
 package com.hero.poetry.controller;
 
 import com.hero.poetry.common.utils.R;
+import com.hero.poetry.entity.dto.RankServiceDTO;
 import com.hero.poetry.service.RankService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -20,7 +21,7 @@ public class RankController {
     @ApiOperation("根据用户id获取当前段位")
     @GetMapping("/getRankByUserId/{userId}")
     public R getRankByUserId(@PathVariable String userId){
-        String rank = rankService.getRank(userId);
-        return R.ok().data("list",rank);
+        RankServiceDTO rankServiceDTO = rankService.getRank(userId);
+        return R.ok().data("name",rankServiceDTO.getRank()).data("url",rankServiceDTO.getIcon());
     }
 }

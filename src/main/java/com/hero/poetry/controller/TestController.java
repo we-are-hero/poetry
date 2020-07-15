@@ -23,18 +23,18 @@ public class TestController {
         for (int i = 0; i < 10; i++) {
             list.add(i);
         }
-        return R.ok().data("list",list);//所有Controller返回R类型即可,数据data用 "list" 为键,数据复杂封装成类即可
+        return R.ok().data("list",list);//所有Controller返回R类型即可
     }
 
     @GetMapping("test2")
     @ApiOperation("传递参数")
     public R passParameter(String name){
-        return R.ok().data("list","你传递的参数是:" + name);
+        return R.ok().data("param","你传递的参数是:" + name);
     }
 
     @GetMapping("test3/{id}")
     @ApiOperation("通过路径传递参数")
     public R passParameter2(@PathVariable String id){
-        return R.ok().data("list","你传递的参数是:" + id);
+        return R.ok().data("param","你传递的参数是:" + id);
     }
 }

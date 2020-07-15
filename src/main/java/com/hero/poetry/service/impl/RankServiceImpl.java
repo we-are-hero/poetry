@@ -1,5 +1,6 @@
 package com.hero.poetry.service.impl;
 
+import com.hero.poetry.entity.dto.RankServiceDTO;
 import com.hero.poetry.mapper.RankMapper;
 import com.hero.poetry.service.RankService;
 import com.hero.poetry.service.config.RankConfigService;
@@ -19,12 +20,12 @@ public class RankServiceImpl implements RankService {
     }
 
     @Override
-    public String getRank(String userId) {
+    public RankServiceDTO getRank(String userId) {
         int score = rankMapper.getScoreByUserId(userId);
-        String rank = rankConfigService.getRankByScore(score);
-        if (rank.equals(RankConfigService.RANK_ERROR)){
+        RankServiceDTO rankServiceDTO = rankConfigService.getRankByScore(score);
+        if (rankServiceDTO == null){
             throw new RuntimeException("段位系统异常");
         }
-        return rank;
+        return rankServiceDTO;
     }
 }

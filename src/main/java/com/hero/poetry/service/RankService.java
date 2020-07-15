@@ -1,5 +1,7 @@
 package com.hero.poetry.service;
 
+import com.hero.poetry.entity.dto.RankServiceDTO;
+
 public interface RankService {
-    String getRank(String userId);
+    RankServiceDTO getRank(String userId);
 }

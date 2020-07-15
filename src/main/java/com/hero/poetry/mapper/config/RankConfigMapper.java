@@ -1,7 +1,6 @@
 package com.hero.poetry.mapper.config;
 
-import com.hero.poetry.entity.config.RankLevel;
-import org.apache.ibatis.annotations.Mapper;
+import com.hero.poetry.entity.RankLevel;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
