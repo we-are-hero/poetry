@@ -45,7 +45,6 @@ public class RankConfigService implements InitializingBean {
     @Override
     public void afterPropertiesSet() throws Exception {
         this.init();
-        System.out.println("初始化");
     }
 
     /**
