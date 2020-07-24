@@ -3,9 +3,11 @@ package com.hero.poetry.service.config;
 import com.hero.poetry.entity.RankLevel;
 import com.hero.poetry.entity.dto.RankServiceDTO;
 import com.hero.poetry.mapper.config.RankConfigMapper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 
@@ -14,7 +16,7 @@ import java.util.*;
  * 从数据库中载入配置
  * 便于运行中修改
  */
-@Component//默认单例
+@Service//默认单例
 public class RankConfigService implements InitializingBean {
     private Map<Integer,RankServiceDTO> level = new LinkedHashMap<>();
 
@@ -31,6 +33,14 @@ public class RankConfigService implements InitializingBean {
             }
         }
         return null;
+    }
+
+    /**
+     * 获取所有的段位
+     * @return 所有段位
+     */
+    public List<RankServiceDTO> getAllRankLadder(){
+        return new ArrayList<>(level.values());
     }
 
     @Autowired
@@ -52,7 +62,9 @@ public class RankConfigService implements InitializingBean {
         level.clear();
         List<RankLevel> rankLevel = rankConfigMapper.getRankLevel();
         for (RankLevel rl:rankLevel){
-            level.put(rl.getScore(),new RankServiceDTO(rl.getLevel(),rl.getIcon()));
+            RankServiceDTO rankServiceDTO = new RankServiceDTO();
+            BeanUtils.copyProperties(rl,rankServiceDTO);
+            level.put(rl.getScore(),rankServiceDTO);
         }
     }
 }

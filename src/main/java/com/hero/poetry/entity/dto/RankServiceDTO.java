@@ -1,23 +1,23 @@
 package com.hero.poetry.entity.dto;
 
 public class RankServiceDTO {
-    private String rank;
+    private String level;
     private String icon;
 
     public RankServiceDTO() {
     }
 
     public RankServiceDTO(String rank, String url) {
-        this.rank = rank;
+        this.level = rank;
         this.icon = url;
     }
 
-    public String getRank() {
-        return rank;
+    public String getLevel() {
+        return level;
     }
 
-    public void setRank(String rank) {
-        this.rank = rank;
+    public void setLevel(String level) {
+        this.level = level;
     }
 
     public String getIcon() {
@@ -31,7 +31,7 @@ public class RankServiceDTO {
     @Override
     public String toString() {
         return "RankServiceDTO{" +
-                "rank='" + rank + '\'' +
+                "level='" + level + '\'' +
                 ", icon='" + icon + '\'' +
                 '}';
     }
