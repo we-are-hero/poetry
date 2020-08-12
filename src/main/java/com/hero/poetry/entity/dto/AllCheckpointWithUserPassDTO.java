@@ -4,10 +4,8 @@ public class AllCheckpointWithUserPassDTO {
     private Integer id;
     private Integer checkpointOrder;
     private String checkpointName;
-    private String checkpointType;
-    private String question;
-    private String answer;
     private Integer pass;
+    private Integer problemNum;
 
     public AllCheckpointWithUserPassDTO() {
     }
@@ -36,30 +34,6 @@ public class AllCheckpointWithUserPassDTO {
         this.checkpointName = checkpointName;
     }
 
-    public String getCheckpointType() {
-        return checkpointType;
-    }
-
-    public void setCheckpointType(String checkpointType) {
-        this.checkpointType = checkpointType;
-    }
-
-    public String getQuestion() {
-        return question;
-    }
-
-    public void setQuestion(String question) {
-        this.question = question;
-    }
-
-    public String getAnswer() {
-        return answer;
-    }
-
-    public void setAnswer(String answer) {
-        this.answer = answer;
-    }
-
     public Integer getPass() {
         return pass;
     }
@@ -68,16 +42,22 @@ public class AllCheckpointWithUserPassDTO {
         this.pass = pass;
     }
 
+    public Integer getProblemNum() {
+        return problemNum;
+    }
+
+    public void setProblemNum(Integer problemNum) {
+        this.problemNum = problemNum;
+    }
+
     @Override
     public String toString() {
         return "AllCheckpointWithUserPassDTO{" +
                 "id=" + id +
                 ", checkpointOrder=" + checkpointOrder +
                 ", checkpointName='" + checkpointName + '\'' +
-                ", checkpointType='" + checkpointType + '\'' +
-                ", question='" + question + '\'' +
-                ", answer='" + answer + '\'' +
                 ", pass=" + pass +
+                ", problemNum=" + problemNum +
                 '}';
     }
 }

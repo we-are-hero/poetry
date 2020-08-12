@@ -22,4 +22,12 @@ public class GlobalExceptionHandler {
         e.printStackTrace();
         return R.error().message("执行了全局异常处理");
     }
+
+    @ExceptionHandler(CustomException.class)//指定出现什么异常执行这个方法
+    @ResponseBody//为了返回数据
+    public R error(CustomException e){
+        log.error(e.getMessage());
+        e.printStackTrace();
+        return R.error().message(e.getMessage());
+    }
 }

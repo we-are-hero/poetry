@@ -25,14 +25,14 @@ public class RankController {
     }
 
     @ApiOperation("根据用户id获取当前段位")
-    @GetMapping("/getRankByUserId/{userId}")
+    @GetMapping("/getRankById/{userId}")
     public R getRankByUserId(@PathVariable String userId){
         RankServiceDTO rankServiceDTO = rankService.getRank(userId);
         return R.ok().data("name",rankServiceDTO.getLevel()).data("url",rankServiceDTO.getIcon());
     }
 
     @ApiOperation("根据年级id获取段位信息")
-    @GetMapping("/getRankLadderByGradeAndUserId/{gradeId}")
+    @GetMapping("/getRankLadderById/{gradeId}")
     public R getRankLadderByGradeAndUserId(@PathVariable Integer gradeId){
         List<RankLadderDTO> rankLadder = rankService.getRankLadderByGradeAndUserId(gradeId);
         List<RankServiceDTO> allRankLadder = rankConfigService.getAllRankLadder();

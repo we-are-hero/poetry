@@ -2,9 +2,29 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hero.poetry.mapper.CheckpointMapper">
     <select id="getAllCheckpointByGradeId" resultType="com.hero.poetry.entity.dto.AllCheckpointWithUserPassDTO">
-        SELECT `cp`.`id`,`cp`.`checkpoint_order`,`cp`.`checkpoint_name`,`cpt`.`name` AS `checkpointType`,`cp`.`question`,`cp`.`answer`,
-               EXISTS(select 1 from `checkpoint_user` `cpu` where `cpu`.`checkpoint_id` = `cp`.`id` and `cpu`.`user_id`=#{userId}) AS pass
-        FROM `checkpoint` `cp` LEFT JOIN `checkpoint_type` `cpt` ON `cp`.`checkpoint_type_id`=`cpt`.`id`
-        WHERE `cp`.`grade_id`=#{gradeId}
+        SELECT `id`,`checkpoint_order`,`checkpoint_name`,`problem_num`,
+               EXISTS(SELECT 1 FROM `checkpoint_user` `cpu` WHERE `cpu`.`checkpoint_id` = `cp`.`id` AND `cpu`.`user_id`=#{userId}) AS pass
+        FROM `checkpoint` `cp`
+        WHERE `grade_id`=#{gradeId}
+        ORDER BY `checkpoint_order` ASC
+    </select>
+    <select id="getCheckpointProblemByCheckpointIdAndProblemOrder"
+            resultType="com.hero.poetry.entity.dto.ProblemDTO">
+        SELECT `cpp`.`id`,`cpp`.`problem_order`,`cpp`.`question`,
+                (SELECT `cpt`.name FROM `checkpoint_type` `cpt` WHERE `cpp`.`checkpoint_type`=`cpt`.`id`) AS `checkpointType`
+        FROM checkpoint_problem cpp
+        WHERE `cpp`.`problem_order` = #{problemOrder} AND `cpp`.`checkpoint_id` = #{checkpointId}
+    </select>
+    <select id="checkProblemAnswer" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM checkpoint_problem
+        WHERE `checkpoint_id` = #{checkpointId} AND
+            `problem_order` = #{problemOrder} AND
+            `answer` = #{problemAnswer}
+    </select>
+    <select id="getProblemNum" resultType="java.lang.Integer">
+        SELECT problem_num
+        FROM checkpoint
+        WHERE id = #{checkpointId}
     </select>
 </mapper>
