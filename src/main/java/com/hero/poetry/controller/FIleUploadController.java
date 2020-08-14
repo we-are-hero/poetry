@@ -17,6 +17,7 @@ public class FIleUploadController {
 
     @Value("${file.path}")
     private String filePath;
+
     @RequestMapping("/poetry/upload")
     @ResponseBody
     public String upload(MultipartFile file){
