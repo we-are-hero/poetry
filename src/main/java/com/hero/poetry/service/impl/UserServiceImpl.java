@@ -25,6 +25,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<Grade> getAllGrade() {
-        return null;
+        return gradeMapper.getAllGrade();
     }
 }
