@@ -19,12 +19,24 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Integer getGradeById(String userId) {
+    public Integer getGradeIdById(String userId) {
         return userMapper.getGradeById(userId);
     }
 
     @Override
     public List<Grade> getAllGrade() {
         return gradeMapper.getAllGrade();
+    }
+
+    @Override
+    public Grade getGradeById(String userId) {
+        Integer gradeId = userMapper.getGradeById(userId);
+        Grade grade = gradeMapper.getGradeById(gradeId);
+        return grade;
+    }
+
+    @Override
+    public void modifyGradeByUserId(String userId, Integer gradeId) {
+        userMapper.modifyGradeByUserId(userId,gradeId);
     }
 }

@@ -4,6 +4,11 @@
 
   <select id="getAllGrade" resultType="com.hero.poetry.entity.Grade">
     SELECT `id`,`grade_name`
-    FROM grade
+    FROM `grade`
+  </select>
+  <select id="getGradeById" resultType="com.hero.poetry.entity.Grade">
+    SELECT `id`,`grade_name`
+    FROM `grade`
+    WHERE `id` = #{gradeId}
   </select>
 </mapper>

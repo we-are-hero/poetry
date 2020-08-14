@@ -8,4 +8,6 @@ import java.util.List;
 @Repository
 public interface GradeMapper {
     List<Grade> getAllGrade();
+
+    Grade getGradeById(Integer gradeId);
 }

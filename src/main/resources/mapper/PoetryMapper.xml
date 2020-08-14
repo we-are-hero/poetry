@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hero.poetry.mapper.PoetryMapper">
+
+    <select id="getPoetryIntroductionByGradeId" resultType="com.hero.poetry.entity.dto.PoetryIntroductionDTO">
+        SELECT `id`,`poetry_title`,`poetry_dynasty`,`poetry_author`
+        FROM `poetrys`
+        WHERE `grade_id` = #{gradeId}
+    </select>
+    <select id="getPoetryIntroductionByGradeIdCondition" resultType="com.hero.poetry.entity.dto.PoetryIntroductionDTO">
+        SELECT `id`,`poetry_title`,`poetry_dynasty`,`poetry_author`
+        FROM `poetrys`
+        WHERE `grade_id` = #{gradeId}
+    </select>
+    <select id="getPoetryById" resultType="com.hero.poetry.entity.Poetry">
+        SELECT `id`,`poetry_title`,`poetry_dynasty`,`poetry_author`,`poetry_content`,`poetry_keywords`,`poetry_translation`
+        FROM `poetrys`
+        WHERE `id` = #{poetryId}
+    </select>
+</mapper>

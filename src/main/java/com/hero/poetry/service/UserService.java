@@ -5,7 +5,11 @@ import com.hero.poetry.entity.Grade;
 import java.util.List;
 
 public interface UserService {
-    Integer getGradeById(String userId);
+    Integer getGradeIdById(String userId);
 
     List<Grade> getAllGrade();
+
+    Grade getGradeById(String userId);
+
+    void modifyGradeByUserId(String userId, Integer gradeId);
 }

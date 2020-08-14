@@ -28,7 +28,7 @@ public class CheckpointServiceImpl implements CheckpointService {
 
     @Override
     public List<AllCheckpointWithUserPassDTO> getAllCheckpoint(String userId) {
-        Integer gradeId = userService.getGradeById(userId);
+        Integer gradeId = userService.getGradeIdById(userId);
         List<AllCheckpointWithUserPassDTO> allCheckpointByGradeId = checkpointMapper.getAllCheckpointByGradeId(gradeId, userId);
         return allCheckpointByGradeId;
     }

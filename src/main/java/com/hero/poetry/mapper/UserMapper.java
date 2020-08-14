@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserMapper {
     Integer getGradeById(String userId);
+
+    void modifyGradeByUserId(String userId, Integer gradeId);
 }
