@@ -29,7 +29,7 @@ public class PoetryController {
     }
 
     @ApiOperation("根据古诗id获取古诗全部信息")
-    @PostMapping("/getPoetryById/{poetryId}")
+    @GetMapping("/getPoetryById/{poetryId}")
     public R getPoetryById(@PathVariable Integer poetryId) {
         Poetry poetry = poetryService.getPoetryById(poetryId);
         return R.ok().data("poetry",poetry);

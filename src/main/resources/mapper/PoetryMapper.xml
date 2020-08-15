@@ -10,7 +10,8 @@
     <select id="getPoetryIntroductionByGradeIdCondition" resultType="com.hero.poetry.entity.dto.PoetryIntroductionDTO">
         SELECT `id`,`poetry_title`,`poetry_dynasty`,`poetry_author`
         FROM `poetrys`
-        WHERE `grade_id` = #{gradeId}
+        WHERE `grade_id` = #{gradeId} AND
+              (poetry_title LIKE concat('%', #{msg}, '%') OR poetry_dynasty LIKE concat('%', #{msg}, '%') OR poetry_author LIKE concat('%', #{msg}, '%'))
     </select>
     <select id="getPoetryById" resultType="com.hero.poetry.entity.Poetry">
         SELECT `id`,`poetry_title`,`poetry_dynasty`,`poetry_author`,`poetry_content`,`poetry_keywords`,`poetry_translation`

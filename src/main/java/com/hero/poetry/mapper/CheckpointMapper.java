@@ -2,19 +2,20 @@ package com.hero.poetry.mapper;
 
 import com.hero.poetry.entity.dto.AllCheckpointWithUserPassDTO;
 import com.hero.poetry.entity.dto.ProblemDTO;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
 public interface CheckpointMapper {
-    List<AllCheckpointWithUserPassDTO> getAllCheckpointByGradeId(Integer gradeId, String userId);
+    List<AllCheckpointWithUserPassDTO> getAllCheckpointByGradeId(@Param("gradeId") Integer gradeId, @Param("userId")String userId);
 
-    ProblemDTO getCheckpointProblemByCheckpointIdAndProblemOrder(Integer checkpointId, Integer problemOrder);
+    ProblemDTO getCheckpointProblemByCheckpointIdAndProblemOrder(@Param("checkpointId")Integer checkpointId, @Param("problemOrder")Integer problemOrder);
 
-    int checkProblemAnswer(Integer checkpointId, Integer problemOrder, String problemAnswer);
+    int checkProblemAnswer(@Param("checkpointId")Integer checkpointId, @Param("problemOrder")Integer problemOrder, @Param("problemAnswer")String problemAnswer);
 
-    Integer getProblemNum(Integer checkpointId);
+    Integer getProblemNum(@Param("checkpointId")Integer checkpointId);
 
 
 }

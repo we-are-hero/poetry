@@ -38,7 +38,6 @@ public class RankServiceImpl implements RankService {
     @Override
     public List<RankLadderDTO> getRankLadderByGradeAndUserId(Integer gradeId) {
         List<Rank> allScore = rankMapper.getAllScoreByGradeId(gradeId);
-        System.out.println(allScore);
         List<RankLadderDTO> rankServiceDTOList = new ArrayList<>();
         for (Rank rank : allScore) {
             RankLadderDTO rankLadderDTO = new RankLadderDTO();

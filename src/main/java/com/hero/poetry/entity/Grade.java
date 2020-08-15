@@ -1,17 +1,13 @@
 package com.hero.poetry.entity;
 
-import java.io.Serializable;
-
 /**
  * grade
  * @author 
  */
-public class Grade implements Serializable {
+public class Grade {
     private Integer id;
 
     private String gradeName;
-
-    private static final long serialVersionUID = 1L;
 
     public Integer getId() {
         return id;

@@ -1,12 +1,11 @@
 package com.hero.poetry.entity;
 
-import java.io.Serializable;
 
 /**
  * checkpoint_problem
  * @author 
  */
-public class CheckpointProblem implements Serializable {
+public class CheckpointProblem {
     private Integer id;
 
     /**
@@ -33,8 +32,6 @@ public class CheckpointProblem implements Serializable {
      * 关卡类型
      */
     private Integer checkpointType;
-
-    private static final long serialVersionUID = 1L;
 
     public Integer getId() {
         return id;
