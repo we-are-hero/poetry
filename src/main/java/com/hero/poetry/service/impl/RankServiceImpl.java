@@ -37,15 +37,11 @@ public class RankServiceImpl implements RankService {
 
     @Override
     public List<RankLadderDTO> getRankLadderByGradeAndUserId(Integer gradeId) {
-        List<Rank> allScore = rankMapper.getAllScoreByGradeId(gradeId);
-        List<RankLadderDTO> rankServiceDTOList = new ArrayList<>();
-        for (Rank rank : allScore) {
-            RankLadderDTO rankLadderDTO = new RankLadderDTO();
-            BeanUtils.copyProperties(rank,rankLadderDTO);
-            String rankName = rankConfigService.getRankByScore(rankLadderDTO.getScore()).getLevel();
-            rankLadderDTO.setRankName(rankName);
-            rankServiceDTOList.add(rankLadderDTO);
+        List<RankLadderDTO> allScore = rankMapper.getAllScoreByGradeId(gradeId);
+        for (int i=0;i<allScore.size();i++) {
+            String rankName = rankConfigService.getRankByScore(allScore.get(i).getScore()).getLevel();
+            allScore.get(i).setRankName(rankName);
         }
-        return rankServiceDTOList;
+        return allScore;
     }
 }
