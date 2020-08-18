@@ -3,6 +3,7 @@ package com.hero.poetry.service.impl;
 import com.hero.poetry.entity.Rank;
 import com.hero.poetry.entity.dto.RankLadderDTO;
 import com.hero.poetry.entity.dto.RankServiceDTO;
+import com.hero.poetry.entity.vo.RankDataVo;
 import com.hero.poetry.mapper.RankMapper;
 import com.hero.poetry.service.RankService;
 import com.hero.poetry.service.config.RankConfigService;
@@ -43,5 +44,16 @@ public class RankServiceImpl implements RankService {
             allScore.get(i).setRankName(rankName);
         }
         return allScore;
+    }
+
+    @Override
+    public void updateRank(RankDataVo rankDataVo) {
+        rankMapper.updateRankById(rankDataVo);
+    }
+
+    @Override
+    public List<RankLadderDTO> getAllRank(Integer gradeId) {
+        List<RankLadderDTO> allScoreByGradeId = rankMapper.getAllScoreByGradeId(gradeId);
+        return allScoreByGradeId;
     }
 }

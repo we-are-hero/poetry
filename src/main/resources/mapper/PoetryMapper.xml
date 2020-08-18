@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hero.poetry.mapper.PoetryMapper">
+    <insert id="addPoetry">
+        INSERT INTO `poetrys`
+        (`id`, `grade_id`, `poetry_title`, `poetry_dynasty`, `poetry_author`, `poetry_content`, `poetry_keywords`, `poetry_translation`, `poetry_image`)
+        VALUES (#{id}, #{gradeId}, #{poetryTitle}, #{poetryDynasty}, #{poetryAuthor}, #{poetryContent}, #{poetryKeywords}, #{poetryTranslation}, #{poetryImage})
+    </insert>
+    <update id="updatePoetryById">
+        UPDATE `poetrys`
+        SET `grade_id` = #{gradeId},
+            `poetry_title` = #{poetryTitle},
+            `poetry_dynasty` = #{poetryDynasty},
+            `poetry_author` = #{poetryAuthor},
+            `poetry_content` = #{poetryContent},
+            `poetry_keywords` = #{poetryKeywords},
+            `poetry_translation` = #{poetryTranslation},
+            `poetry_image` = #{poetryImage}
+        WHERE `id` = #{id}
+    </update>
+    <delete id="deletePoetryById">
+        DELETE FROM `poetrys` WHERE `id` = #{id}
+    </delete>
 
     <select id="getPoetryIntroductionByGradeId" resultType="com.hero.poetry.entity.dto.PoetryIntroductionDTO">
         SELECT `id`,`poetry_title`,`poetry_dynasty`,`poetry_author`,`poetry_image`
@@ -18,4 +38,14 @@
         FROM `poetrys`
         WHERE `id` = #{poetryId}
     </select>
+    <select id="getAllPoetry" resultType="com.hero.poetry.entity.Poetry">
+        SELECT `id`, `grade_id`, `poetry_title`, `poetry_dynasty`, `poetry_author`, `poetry_content`, `poetry_keywords`, `poetry_translation`, `poetry_image`
+        FROM `poetrys`
+    </select>
+    <select id="getAllPoetryByGradeId" resultType="com.hero.poetry.entity.Poetry">
+        SELECT `id`, `grade_id`, `poetry_title`, `poetry_dynasty`, `poetry_author`, `poetry_content`, `poetry_keywords`, `poetry_translation`, `poetry_image`
+        FROM `poetrys`
+        WHERE `grade_id` = #{gradeId}
+    </select>
+
 </mapper>

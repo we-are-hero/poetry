@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hero.poetry.mapper.config.RankConfigMapper">
+    <insert id="addRankLevel">
+        INSERT INTO `rank_level`
+        (`score`, `level`, `icon`)
+        VALUES (#{score},#{level},#{icon})
+    </insert>
+    <update id="updateLevel">
+        UPDATE rank_level
+        SET `score` = #{score},
+            `level` = #{level},
+            `icon` = #{icon}
+        WHERE `id` = #{id}
+    </update>
+    <delete id="deleteLevel">
+        DELETE FROM `rank_level` WHERE `id` = #{id}
+    </delete>
     <select id="getRankLevel" resultType="com.hero.poetry.entity.RankLevel">
         SELECT `id`,`score`,`level`,`icon` FROM `rank_level` ORDER BY `score` DESC
     </select>

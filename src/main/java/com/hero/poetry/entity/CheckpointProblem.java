@@ -8,29 +8,14 @@ package com.hero.poetry.entity;
 public class CheckpointProblem {
     private Integer id;
 
-    /**
-     * 序号
-     */
     private Integer problemOrder;
 
-    /**
-     * 问题
-     */
     private String question;
 
-    /**
-     * 答案
-     */
     private String answer;
 
-    /**
-     * 关卡名称
-     */
     private Integer checkpointId;
 
-    /**
-     * 关卡类型
-     */
     private Integer checkpointType;
 
     public Integer getId() {

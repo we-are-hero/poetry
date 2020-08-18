@@ -7,4 +7,13 @@
         (`checkpoint_id`,`user_id`)
         VALUES(#{checkpointId},#{userId})
     </insert>
+    <delete id="deletePassByCheckpointId">
+        DELETE FROM `checkpoint_user`
+        WHERE `checkpoint_id` = #{checkpointId}
+    </delete>
+    <select id="checkPassCheckpointByUserIdAndCheckpointId" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM `checkpoint_user`
+        WHERE `user_id` = #{userId} AND `checkpoint_id` = #{checkpointId}
+    </select>
 </mapper>

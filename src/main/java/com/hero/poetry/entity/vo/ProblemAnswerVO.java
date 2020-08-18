@@ -2,13 +2,13 @@ package com.hero.poetry.entity.vo;
 
 import io.swagger.models.auth.In;
 
-public class ProblemAnswer {
+public class ProblemAnswerVO {
     private String userId;
     private Integer checkpointId;
     private Integer problemOrder;
     private String problemAnswer;
 
-    public ProblemAnswer() {
+    public ProblemAnswerVO() {
     }
 
     public String getUserId() {

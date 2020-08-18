@@ -15,4 +15,14 @@ public interface PoetryMapper {
     List<PoetryIntroductionDTO> getPoetryIntroductionByGradeId(@Param("gradeId") Integer gradeId);
 
     Poetry getPoetryById(@Param("poetryId") Integer poetryId);
+
+    List<Poetry> getAllPoetry();
+
+    List<Poetry> getAllPoetryByGradeId(@Param("gradeId")Integer gradeId);
+
+    Integer addPoetry(@Param("poetry")Poetry poetry);
+
+    Integer updatePoetryById(@Param("poetry") Poetry poetry);
+
+    Integer deletePoetryById(@Param("id") Integer id);
 }

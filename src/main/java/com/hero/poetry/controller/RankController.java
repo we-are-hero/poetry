@@ -1,8 +1,11 @@
 package com.hero.poetry.controller;
 
 import com.hero.poetry.common.utils.R;
+import com.hero.poetry.entity.Rank;
+import com.hero.poetry.entity.RankLevel;
 import com.hero.poetry.entity.dto.RankLadderDTO;
 import com.hero.poetry.entity.dto.RankServiceDTO;
+import com.hero.poetry.entity.vo.RankDataVo;
 import com.hero.poetry.service.RankService;
 import com.hero.poetry.service.config.RankConfigService;
 import io.swagger.annotations.Api;
@@ -37,5 +40,47 @@ public class RankController {
         List<RankLadderDTO> rankLadder = rankService.getRankLadderByGradeAndUserId(gradeId);
         List<RankServiceDTO> allRankLadder = rankConfigService.getAllRankLadder();
         return R.ok().data("rankData",rankLadder).data("rank",allRankLadder);
+    }
+
+    @ApiOperation("增加段位水平")
+    @PostMapping("/rankLevel")
+    public R addRankLevel(@RequestBody RankLevel rankLevel){
+        rankConfigService.addRankLevel(rankLevel);
+        return R.ok();
+    }
+
+    @ApiOperation("删除段位水平")
+    @DeleteMapping("/rankLevel/{id}")
+    public R deleteRankLevel(@PathVariable Integer id){
+        rankConfigService.deleteRankLevel(id);
+        return R.ok();
+    }
+
+    @ApiOperation("修改段位水平")
+    @PutMapping("/rankLevel")
+    public R updateRankLevel(@RequestBody RankLevel rankLevel){
+        rankConfigService.updateRankLevel(rankLevel);
+        return R.ok();
+    }
+
+    @ApiOperation("获取全部段位水平")
+    @GetMapping("/rankLevels")
+    public R getAllRankLevel(){
+        List<RankLevel> allRankLevel = rankConfigService.getAllRankLevel();
+        return R.ok().data("list",allRankLevel);
+    }
+
+    @ApiOperation("修改段位")
+    @PutMapping("/rank")
+    public R updateRankLevel(@RequestBody RankDataVo rankDataVo){
+        rankService.updateRank(rankDataVo);
+        return R.ok();
+    }
+
+    @ApiOperation("获取全部段位")
+    @GetMapping("/ranks/{gradeId}")
+    public R getAllRank(@PathVariable Integer gradeId){
+        List<RankLadderDTO> allRank = rankService.getAllRank(gradeId);
+        return R.ok().data("list",allRank);
     }
 }

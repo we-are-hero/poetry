@@ -2,6 +2,7 @@ package com.hero.poetry.controller;
 
 import com.hero.poetry.common.utils.R;
 import com.hero.poetry.entity.Grade;
+import com.hero.poetry.entity.User;
 import com.hero.poetry.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -38,6 +39,55 @@ public class UserController {
     @ApiOperation("更改用户的年级")
     public R modifyGradeByUserId(@PathVariable String userId,@PathVariable Integer gradeId){
         userService.modifyGradeByUserId(userId,gradeId);
+        return R.ok();
+    }
+
+    @PostMapping("/grade")
+    @ApiOperation("添加年级")
+    public R addGrade(@RequestBody Grade grade){
+        userService.addGrade(grade);
+        return R.ok();
+    }
+
+    @DeleteMapping("/grade/{id}")
+    @ApiOperation("删除年级")
+    public R deleteGrade(@PathVariable String id){
+        userService.deleteGrade(id);
+        return R.ok();
+    }
+
+    @PutMapping("/grade")
+    @ApiOperation("修改年级")
+    public R deleteGrade(@RequestBody Grade grade){
+        userService.updateGrade(grade);
+        return R.ok();
+    }
+
+    @PostMapping("/user")
+    @ApiOperation("添加用户")
+    public R addUser(@RequestBody User user){
+        userService.addUser(user);
+        return R.ok();
+    }
+
+    @GetMapping("/users")
+    @ApiOperation("获取全部用户")
+    public R getAllUser(){
+        List<User> list = userService.getAllUser();
+        return R.ok().data("list",list);
+    }
+
+    @PutMapping("/user")
+    @ApiOperation("修改用户信息")
+    public R updateUser(@RequestBody User user){
+        userService.updateUser(user);
+        return R.ok();
+    }
+
+    @DeleteMapping("/user/{id}")
+    @ApiOperation("删除用户信息")
+    public R deleteUser(@PathVariable String id){
+        userService.deleteUser(id);
         return R.ok();
     }
 }

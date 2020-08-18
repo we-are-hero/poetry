@@ -34,4 +34,29 @@ public class PoetryServiceImpl implements PoetryService {
         Poetry poetry = poetryMapper.getPoetryById(poetryId);
         return poetry;
     }
+
+    @Override
+    public void addPoetry(Poetry poetry) {
+        poetryMapper.addPoetry(poetry);
+    }
+
+    @Override
+    public void deletePoetry(Integer id) {
+        poetryMapper.deletePoetryById(id);
+    }
+
+    @Override
+    public void updatePoetry(Poetry poetry) {
+        poetryMapper.updatePoetryById(poetry);
+    }
+
+    @Override
+    public List<Poetry> getAllPoetry() {
+        return poetryMapper.getAllPoetry();
+    }
+
+    @Override
+    public List<Poetry> getAllPoetryByGradeId(Integer gradeId) {
+        return poetryMapper.getAllPoetryByGradeId(gradeId);
+    }
 }

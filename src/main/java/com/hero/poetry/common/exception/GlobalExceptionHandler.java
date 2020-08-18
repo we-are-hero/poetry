@@ -28,6 +28,6 @@ public class GlobalExceptionHandler {
     public R error(CustomException e){
         log.error(e.getMessage());
         e.printStackTrace();
-        return R.error().message(e.getMessage());
+        return R.error().code(e.getResultCode()).message(e.getMessage());
     }
 }

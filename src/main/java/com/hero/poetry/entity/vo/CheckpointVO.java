@@ -1,13 +1,12 @@
-package com.hero.poetry.entity;
+package com.hero.poetry.entity.vo;
 
-public class Checkpoint {
+public class CheckpointVO {
     private Integer id;
     private Integer checkpointOrder;
     private String checkpointName;
     private Integer gradeId;
-    private Integer problemNum;
 
-    public Checkpoint() {
+    public CheckpointVO() {
     }
 
     public Integer getId() {
@@ -40,13 +39,5 @@ public class Checkpoint {
 
     public void setGradeId(Integer gradeId) {
         this.gradeId = gradeId;
-    }
-
-    public Integer getProblemNum() {
-        return problemNum;
-    }
-
-    public void setProblemNum(Integer problemNum) {
-        this.problemNum = problemNum;
     }
 }

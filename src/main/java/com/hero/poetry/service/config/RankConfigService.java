@@ -18,7 +18,14 @@ import java.util.*;
  */
 @Service//默认单例
 public class RankConfigService implements InitializingBean {
+
+    private final RankConfigMapper rankConfigMapper;
+
     private Map<Integer,RankServiceDTO> level = new LinkedHashMap<>();
+
+    private RankConfigService(RankConfigMapper rankConfigMapper){
+        this.rankConfigMapper = rankConfigMapper;
+    };
 
     /**
      * 根据分数来获取段位
@@ -43,12 +50,22 @@ public class RankConfigService implements InitializingBean {
         return new ArrayList<>(level.values());
     }
 
-    @Autowired
-    private RankConfigService(RankConfigMapper rankConfigMapper){
-        this.rankConfigMapper = rankConfigMapper;
-    };
+    public void addRankLevel(RankLevel rankLevel){
+        rankConfigMapper.addRankLevel(rankLevel);
+        init();
+    }
 
-    private final RankConfigMapper rankConfigMapper;
+    public List<RankLevel> getAllRankLevel(){
+        return rankConfigMapper.getRankLevel();
+    }
+
+    public void deleteRankLevel(Integer id){
+        rankConfigMapper.deleteLevel(id);
+    }
+
+    public void updateRankLevel(RankLevel rankLevel){
+        rankConfigMapper.updateLevel(rankLevel);
+    }
 
     @Override
     public void afterPropertiesSet() throws Exception {

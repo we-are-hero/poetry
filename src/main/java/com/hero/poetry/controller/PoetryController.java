@@ -34,4 +34,39 @@ public class PoetryController {
         Poetry poetry = poetryService.getPoetryById(poetryId);
         return R.ok().data("poetry",poetry);
     }
+
+    @ApiOperation("增加古诗")
+    @PostMapping("/poetry")
+    public R addPoetry(@RequestBody Poetry poetry) {
+        poetryService.addPoetry(poetry);
+        return R.ok();
+    }
+
+    @ApiOperation("删除古诗")
+    @DeleteMapping("/poetry/{id}")
+    public R deletePoetry(@PathVariable Integer id) {
+        poetryService.deletePoetry(id);
+        return R.ok();
+    }
+
+    @ApiOperation("修改古诗")
+    @GetMapping("/poetry")
+    public R updatePoetry(@RequestBody Poetry poetry) {
+        poetryService.updatePoetry(poetry);
+        return R.ok();
+    }
+
+    @ApiOperation("查询古诗")
+    @GetMapping("/poetrys")
+    public R getAllPoetry() {
+        List<Poetry> allPoetry = poetryService.getAllPoetry();
+        return R.ok().data("list",allPoetry);
+    }
+
+    @ApiOperation("根据gradeId查询古诗")
+    @GetMapping("/poetrys/{id}")
+    public R getAllPoetry(@PathVariable Integer id) {
+        List<Poetry> allPoetry = poetryService.getAllPoetryByGradeId(id);
+        return R.ok().data("list",allPoetry);
+    }
 }

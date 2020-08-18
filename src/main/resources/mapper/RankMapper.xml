@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hero.poetry.mapper.RankMapper">
+    <update id="updateRankById">
+        UPDATE `rank`
+        SET `score` = #{score}
+            `grade_id` = #{gradeId}
+        WHERE `id` = #{id}
+    </update>
+    <delete id="deleteRankByUserId">
+        DELETE FROM `rank` WHERE `user_id` = #{id}
+    </delete>
     <select id="getScoreByUserId" resultType="java.lang.Integer">
         SELECT `score`
         FROM `rank`
@@ -11,6 +20,11 @@
         FROM `rank` LEFT JOIN `user` ON `rank`.`user_id`=`user`.`id`
         WHERE `rank`.`grade_id` = #{gradeId}
         GROUP BY `rank`.`score` DESC
+    </select>
+    <select id="getRankById" resultType="com.hero.poetry.entity.dto.RankLadderDTO">
+        SELECT `rank`.`id`,`rank`.`score`,`rank`.`user_id`,`user`.`username`
+        FROM `rank` LEFT JOIN `user` ON `rank`.`user_id`=`user`.`id`
+        WHERE `rank`.`id` = #{id}
     </select>
 
 </mapper>

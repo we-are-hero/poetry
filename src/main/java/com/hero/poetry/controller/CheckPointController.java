@@ -1,13 +1,15 @@
 package com.hero.poetry.controller;
 
 import com.hero.poetry.common.utils.R;
+import com.hero.poetry.entity.Checkpoint;
+import com.hero.poetry.entity.CheckpointProblem;
 import com.hero.poetry.entity.dto.AllCheckpointWithUserPassDTO;
 import com.hero.poetry.entity.dto.ProblemDTO;
-import com.hero.poetry.entity.vo.ProblemAnswer;
+import com.hero.poetry.entity.vo.CheckpointVO;
+import com.hero.poetry.entity.vo.ProblemAnswerVO;
 import com.hero.poetry.service.CheckpointService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,7 +28,7 @@ public class CheckPointController {
     @GetMapping("getAllCheckpointById/{userId}")
     @ApiOperation("根据user id获取全部关卡")
     public R getAllCheckpointByUserId(@PathVariable String userId){
-        List<AllCheckpointWithUserPassDTO> result = checkpointService.getAllCheckpoint(userId);
+        List<AllCheckpointWithUserPassDTO> result = checkpointService.getAllCheckpointByUserId(userId);
         return R.ok().data("checkpointList",result);
     }
 
@@ -39,7 +41,7 @@ public class CheckPointController {
 
     @PostMapping("checkProblemAnswer")
     @ApiOperation("检查答案")
-    public R checkProblemAnswer(@RequestBody ProblemAnswer problemOrder){
+    public R checkProblemAnswer(@RequestBody ProblemAnswerVO problemOrder){
         boolean result = checkpointService.checkProblemAnswer(problemOrder);
         return R.ok().data("isAnswerCorrect",result);
     }
@@ -49,5 +51,68 @@ public class CheckPointController {
     public R getProblemNum(@PathVariable Integer checkpointId){
         int n = checkpointService.getProblemNum(checkpointId);
         return R.ok().data("problemNum",n);
+    }
+
+    @PostMapping("checkpoint")
+    @ApiOperation("添加关卡")
+    public R addCheckpoint(@RequestBody CheckpointVO checkpointVO){
+        checkpointService.addCheckpoint(checkpointVO);
+        return R.ok();
+    }
+
+    @DeleteMapping("checkpoint/{id}")
+    @ApiOperation("删除关卡")
+    public R deleteCheckpoint(@PathVariable Integer id){
+        checkpointService.deleteCheckpoint(id);
+        return R.ok();
+    }
+
+    @PutMapping("checkpoint")
+    @ApiOperation("修改关卡")
+    public R updateCheckpoint(@RequestBody CheckpointVO checkpointVO){
+        checkpointService.updateCheckpoint(checkpointVO);
+        return R.ok();
+    }
+
+    @GetMapping("checkpoints/{gradeId}")
+    @ApiOperation("根据年级获取全部关卡")
+    public R getAllCheckpointByGradeId(@PathVariable Integer gradeId){
+        List<Checkpoint> list = checkpointService.getAllCheckpointByGradeId(gradeId);
+        return R.ok().data("list",list);
+    }
+
+    @GetMapping("checkpoints")
+    @ApiOperation("获取全部关卡")
+    public R getAllCheckpointByGradeId(){
+        List<Checkpoint> list = checkpointService.getAllCheckpoint();
+        return R.ok().data("list",list);
+    }
+
+    @GetMapping("problems/{checkpointId}")
+    @ApiOperation("根据关卡获取全部问题")
+    public R getProblemById(@PathVariable Integer checkpointId){
+        List<ProblemDTO> list = checkpointService.getCheckpointProblemByCheckpointId(checkpointId);
+        return R.ok().data("list",list);
+    }
+
+    @PostMapping("problem")
+    @ApiOperation("添加问题")
+    public R addProblem(@RequestBody CheckpointProblem checkpointProblem){
+        checkpointService.addProblem(checkpointProblem);
+        return R.ok();
+    }
+
+    @DeleteMapping("problem/{id}")
+    @ApiOperation("根据id删除问题")
+    public R deleteProblemById(@PathVariable Integer id){
+        checkpointService.deleteProblem(id);
+        return R.ok();
+    }
+
+    @PutMapping("problem")
+    @ApiOperation("修改问题")
+    public R updateProblem(@RequestBody CheckpointProblem checkpointProblem){
+        checkpointService.updateProblem(checkpointProblem);
+        return R.ok();
     }
 }

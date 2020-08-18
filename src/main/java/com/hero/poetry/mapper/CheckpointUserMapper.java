@@ -5,5 +5,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CheckpointUserMapper {
-    void passCheckpoint(@Param("checkpointId") Integer checkpointId, @Param("userId") String userId);
+    Integer passCheckpoint(@Param("checkpointId") Integer checkpointId, @Param("userId") String userId);
+
+    Integer deletePassByCheckpointId(@Param("checkpointId") Integer checkpointId);
+
+    Integer checkPassCheckpointByUserIdAndCheckpointId(@Param("userId")String userId,@Param("checkpointId")Integer checkpointId);
 }

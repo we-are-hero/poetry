@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hero.poetry.mapper.FeedbackMapper">
+  <delete id="deleteById" parameterType="java.lang.Integer">
+    delete from `feedback`
+    where `id` = #{id}
+  </delete>
+  <select id="getAllFeedback" resultType="com.hero.poetry.entity.Feedback">
+    SELECT `content`, `phone`
+    FROM `feedback`
+  </select>
+
+  <insert id="addFeedback" keyColumn="id" keyProperty="id" parameterType="com.hero.poetry.entity.Feedback" useGeneratedKeys="true">
+    insert into `feedback` (`content`, `phone`)
+    values (#{content}, #{phone})
+  </insert>
+</mapper>
