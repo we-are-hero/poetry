@@ -23,7 +23,7 @@ public class PoetryController {
 
     @ApiOperation("根据年级id获取古诗")
     @PostMapping("/getPoetryIntroduction/{gradeId}")
-    public R getPoetryIntroduction(@PathVariable Integer gradeId, @RequestParam(required = false) String msg) {
+    public R getPoetryIntroduction(@PathVariable Integer gradeId, @RequestBody(required = false) String msg) {
         List<PoetryIntroductionDTO> poetryIntroductionByGradeId = poetryService.getPoetryIntroductionByGradeId(gradeId, msg);
         return R.ok().data("poetryIntroduction",poetryIntroductionByGradeId);
     }

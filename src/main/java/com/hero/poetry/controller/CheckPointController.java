@@ -39,7 +39,7 @@ public class CheckPointController {
 
     @PostMapping("checkProblemAnswer")
     @ApiOperation("检查答案")
-    public R checkProblemAnswer(ProblemAnswer problemOrder){
+    public R checkProblemAnswer(@RequestBody ProblemAnswer problemOrder){
         boolean result = checkpointService.checkProblemAnswer(problemOrder);
         return R.ok().data("isAnswerCorrect",result);
     }
