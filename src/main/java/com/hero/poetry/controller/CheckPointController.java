@@ -43,4 +43,11 @@ public class CheckPointController {
         boolean result = checkpointService.checkProblemAnswer(problemOrder);
         return R.ok().data("isAnswerCorrect",result);
     }
+
+    @GetMapping("getProblemById/{checkpointId}/")
+    @ApiOperation("根据关卡id 获取问题数量")
+    public R getProblemNum(@PathVariable Integer checkpointId){
+        int n = checkpointService.getProblemNum(checkpointId);
+        return R.ok().data("problemNum",n);
+    }
 }

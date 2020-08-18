@@ -8,6 +8,7 @@ public class Poetry {
     private String poetryContent;
     private String poetryKeywords;
     private String poetryTranslation;
+    private String poetryImage;
 
     public Poetry() {
     }
@@ -68,9 +69,17 @@ public class Poetry {
         this.poetryTranslation = poetryTranslation;
     }
 
+    public String getPoetryImage() {
+        return poetryImage;
+    }
+
+    public void setPoetryImage(String poetryImage) {
+        this.poetryImage = poetryImage;
+    }
+
     @Override
     public String toString() {
-        return "Poerty{" +
+        return "Poetry{" +
                 "id=" + id +
                 ", poetryTitle='" + poetryTitle + '\'' +
                 ", poetryDynasty='" + poetryDynasty + '\'' +
@@ -78,6 +87,7 @@ public class Poetry {
                 ", poetryContent='" + poetryContent + '\'' +
                 ", poetryKeywords='" + poetryKeywords + '\'' +
                 ", poetryTranslation='" + poetryTranslation + '\'' +
+                ", poetryImage='" + poetryImage + '\'' +
                 '}';
     }
 }

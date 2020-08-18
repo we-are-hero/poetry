@@ -78,4 +78,10 @@ public class CheckpointServiceImpl implements CheckpointService {
         }
         return true;
     }
+
+    @Override
+    public Integer getProblemNum(Integer checkpointId) {
+        int n = checkpointMapper.getProblemNum(checkpointId);
+        return n;
+    }
 }

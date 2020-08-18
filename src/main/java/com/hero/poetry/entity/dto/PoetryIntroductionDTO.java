@@ -5,6 +5,7 @@ public class PoetryIntroductionDTO {
     String poetryTitle;
     String poetryDynasty;
     String poetryAuthor;
+    String poetryImage;
 
     public PoetryIntroductionDTO() {
     }
@@ -39,5 +40,13 @@ public class PoetryIntroductionDTO {
 
     public void setPoetryAuthor(String poetryAuthor) {
         this.poetryAuthor = poetryAuthor;
+    }
+
+    public String getPoetryImage() {
+        return poetryImage;
+    }
+
+    public void setPoetryImage(String poetryImage) {
+        this.poetryImage = poetryImage;
     }
 }

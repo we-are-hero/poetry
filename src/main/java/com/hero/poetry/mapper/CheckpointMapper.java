@@ -17,5 +17,4 @@ public interface CheckpointMapper {
 
     Integer getProblemNum(@Param("checkpointId")Integer checkpointId);
 
-
 }

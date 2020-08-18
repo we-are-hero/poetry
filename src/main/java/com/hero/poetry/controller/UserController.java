@@ -34,7 +34,7 @@ public class UserController {
         return R.ok().data("grade",grade);
     }
 
-    @PutMapping("/modifyGradeById/{userId}}/{gradeId}")
+    @PutMapping("/modifyGradeById/{userId}/{gradeId}")
     @ApiOperation("更改用户的年级")
     public R modifyGradeByUserId(@PathVariable String userId,@PathVariable Integer gradeId){
         userService.modifyGradeByUserId(userId,gradeId);
