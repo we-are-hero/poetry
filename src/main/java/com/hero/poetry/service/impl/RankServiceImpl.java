@@ -56,4 +56,9 @@ public class RankServiceImpl implements RankService {
         List<RankLadderDTO> allScoreByGradeId = rankMapper.getAllScoreByGradeId(gradeId);
         return allScoreByGradeId;
     }
+
+    @Override
+    public void updateScoreByUserId(String userId, Integer score) {
+        rankMapper.updateScoreByUserId(userId,score);
+    }
 }

@@ -3,19 +3,19 @@ package com.hero.poetry.entity;
 import java.io.Serializable;
 
 public class User {
-    private Integer id;
+    private String id;
     private String username;
-    private String user_avatar;
-    private Integer grade_id;
+    private String userAvatar;
+    private Integer gradeId;
 
     public User() {
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -27,20 +27,20 @@ public class User {
         this.username = username;
     }
 
-    public String getUser_avatar() {
-        return user_avatar;
+    public String getUserAvatar() {
+        return userAvatar;
     }
 
-    public void setUser_avatar(String user_avatar) {
-        this.user_avatar = user_avatar;
+    public void setUserAvatar(String userAvatar) {
+        this.userAvatar = userAvatar;
     }
 
-    public Integer getGrade_id() {
-        return grade_id;
+    public Integer getGradeId() {
+        return gradeId;
     }
 
-    public void setGrade_id(Integer grade_id) {
-        this.grade_id = grade_id;
+    public void setGradeId(Integer gradeId) {
+        this.gradeId = gradeId;
     }
 
     @Override
@@ -48,8 +48,8 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
-                ", user_avatar='" + user_avatar + '\'' +
-                ", grade_id=" + grade_id +
+                ", userAvatar='" + userAvatar + '\'' +
+                ", gradeId=" + gradeId +
                 '}';
     }
 }

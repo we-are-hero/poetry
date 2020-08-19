@@ -27,4 +27,8 @@ public interface UserService {
     void updateUser(User user);
 
     void deleteUser(String id);
+
+    User getUser(String userId);
+
+    boolean checkUserExist(String userId);
 }

@@ -26,4 +26,14 @@
         SELECT `id`, `username`, `user_avator`, `grade_id`
         FROM `user`
     </select>
+    <select id="getUserById" resultType="com.hero.poetry.entity.User">
+        SELECT `id`, `username`, `user_avator`, `grade_id`
+        FROM `user`
+        WHERE `id` = #{id}
+    </select>
+    <select id="checkUserExistById" resultType="java.lang.Integer">
+        SELECT 1
+        FROM `user`
+        WHERE `id` = #{id}
+    </select>
 </mapper>

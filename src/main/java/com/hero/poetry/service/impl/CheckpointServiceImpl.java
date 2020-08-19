@@ -13,7 +13,9 @@ import com.hero.poetry.mapper.CheckpointMapper;
 import com.hero.poetry.mapper.CheckpointProblemMapper;
 import com.hero.poetry.mapper.CheckpointUserMapper;
 import com.hero.poetry.service.CheckpointService;
+import com.hero.poetry.service.RankService;
 import com.hero.poetry.service.UserService;
+import com.hero.poetry.service.config.RankConfigService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.parsing.Problem;
 import org.springframework.stereotype.Service;
@@ -23,13 +25,17 @@ import java.util.List;
 @Service
 public class CheckpointServiceImpl implements CheckpointService {
     private final UserService userService;
+    private final RankConfigService rankConfigService;
+    private final RankService rankService;
 
     private final CheckpointMapper checkpointMapper;
     private final CheckpointUserMapper checkpointUserMapper;
     private final CheckpointProblemMapper checkpointProblemMapper;
 
-    public CheckpointServiceImpl(UserService userService, CheckpointMapper checkpointMapper, CheckpointUserMapper checkpointUserMapper, CheckpointProblemMapper checkpointProblemMapper) {
+    public CheckpointServiceImpl(UserService userService, RankConfigService rankConfigService, RankService rankService, CheckpointMapper checkpointMapper, CheckpointUserMapper checkpointUserMapper, CheckpointProblemMapper checkpointProblemMapper) {
         this.userService = userService;
+        this.rankConfigService = rankConfigService;
+        this.rankService = rankService;
         this.checkpointMapper = checkpointMapper;
         this.checkpointUserMapper = checkpointUserMapper;
         this.checkpointProblemMapper = checkpointProblemMapper;
@@ -86,7 +92,9 @@ public class CheckpointServiceImpl implements CheckpointService {
             }
             //全部答对
             checkpointUserMapper.passCheckpoint(problemOrder.getCheckpointId(),problemOrder.getUserId());
-
+            Integer problemNum = checkpointMapper.getProblemNum(problemOrder.getCheckpointId());
+            Integer maxScore = rankConfigService.getMaxScore();
+            rankService.updateScoreByUserId(problemOrder.getUserId(),maxScore/problemNum + 1);
         }
         return true;
     }

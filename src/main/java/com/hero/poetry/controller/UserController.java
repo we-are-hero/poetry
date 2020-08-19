@@ -70,6 +70,20 @@ public class UserController {
         return R.ok();
     }
 
+    @GetMapping("/user/{userId}")
+    @ApiOperation("获取用户信息")
+    public R getUser(@PathVariable String userId){
+        User user = userService.getUser(userId);
+        return R.ok().data("user",user);
+    }
+
+    @GetMapping("/exist/{userId}")
+    @ApiOperation("是否存在该用户")
+    public R checkUserExist(@PathVariable String userId){
+        boolean result = userService.checkUserExist(userId);
+        return R.ok().data("isExist",result);
+    }
+
     @GetMapping("/users")
     @ApiOperation("获取全部用户")
     public R getAllUser(){

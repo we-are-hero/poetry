@@ -19,4 +19,8 @@ public interface RankMapper {
     Integer updateRankById(@Param("rankDataVo") RankDataVo rankDataVo);
 
     Integer deleteRankByUserId(@Param("id") String id);
+
+    Integer updateScoreByUserId(@Param("userId") String userId,@Param("score") Integer score);
+
+    Integer insetRank(@Param("rank") Rank rank);
 }

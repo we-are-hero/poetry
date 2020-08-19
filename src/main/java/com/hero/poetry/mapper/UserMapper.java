@@ -19,4 +19,8 @@ public interface UserMapper {
     Integer deleteUserById(@Param("id") String id);
 
     List<User> getAllUser();
+
+    User getUserById(String id);
+
+    Integer checkUserExistById(String id);
 }

@@ -3,6 +3,7 @@ package com.hero.poetry.service.config;
 import com.hero.poetry.entity.RankLevel;
 import com.hero.poetry.entity.dto.RankServiceDTO;
 import com.hero.poetry.mapper.config.RankConfigMapper;
+import io.swagger.models.auth.In;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,12 +60,25 @@ public class RankConfigService implements InitializingBean {
         return rankConfigMapper.getRankLevel();
     }
 
+    public Integer getMaxScore(){
+        int maxScore = 0;
+        Set<Integer> set = level.keySet();
+        for (Integer i : set) {
+            if (i > maxScore){
+                maxScore = i;
+            }
+        }
+        return maxScore;
+    }
+
     public void deleteRankLevel(Integer id){
         rankConfigMapper.deleteLevel(id);
+        init();
     }
 
     public void updateRankLevel(RankLevel rankLevel){
         rankConfigMapper.updateLevel(rankLevel);
+        init();
     }
 
     @Override

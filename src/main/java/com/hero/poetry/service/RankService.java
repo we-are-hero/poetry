@@ -15,4 +15,6 @@ public interface RankService {
     void updateRank(RankDataVo rankDataVo);
 
     List<RankLadderDTO> getAllRank(Integer gradeId);
+
+    void updateScoreByUserId(String userId,Integer score);
 }

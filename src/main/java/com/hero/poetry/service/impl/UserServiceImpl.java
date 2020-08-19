@@ -1,6 +1,7 @@
 package com.hero.poetry.service.impl;
 
 import com.hero.poetry.entity.Grade;
+import com.hero.poetry.entity.Rank;
 import com.hero.poetry.entity.User;
 import com.hero.poetry.mapper.GradeMapper;
 import com.hero.poetry.mapper.RankMapper;
@@ -62,6 +63,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public void addUser(User user) {
         userMapper.addUser(user);
+        Rank rank = new Rank();
+        rank.setGradeId(user.getGradeId());
+        rank.setUserId(user.getId());
+        rank.setScore(0);
+        rankMapper.insetRank(rank);
     }
 
     @Override
@@ -79,5 +85,16 @@ public class UserServiceImpl implements UserService {
     public void deleteUser(String id) {
         userMapper.deleteUserById(id);
         rankMapper.deleteRankByUserId(id);
+    }
+
+    @Override
+    public User getUser(String userId) {
+        return userMapper.getUserById(userId);
+    }
+
+    @Override
+    public boolean checkUserExist(String userId) {
+        Integer result = userMapper.checkUserExistById(userId);
+        return result != null;
     }
 }
