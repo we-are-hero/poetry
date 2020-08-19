@@ -1,5 +1,6 @@
 package com.hero.poetry.service;
 
+import com.hero.poetry.entity.AdminUser;
 import com.hero.poetry.entity.Grade;
 import com.hero.poetry.entity.User;
 
@@ -31,4 +32,16 @@ public interface UserService {
     User getUser(String userId);
 
     boolean checkUserExist(String userId);
+
+    AdminUser getAdminUserById(Integer id);
+
+    List<AdminUser> getAllAdminUser();
+
+    void updateAdminUser(AdminUser adminUser);
+
+    void deleteAdminUser(Integer id);
+
+    void addAdminUser(AdminUser adminUser);
+
+    boolean loginAdmin(AdminUser adminUser);
 }

@@ -3,18 +3,18 @@
 <mapper namespace="com.hero.poetry.mapper.UserMapper">
     <insert id="addUser">
         INSERT INTO `user`
-        (`id`,`username`, `user_avator`, `grade_id`)
-        VALUES (#{id},#{username},#{userAvator},#{gradeId})
+        (`id`,`username`, `user_avatar`, `grade_id`)
+        VALUES (#{user.id},#{user.username},#{user.userAvatar},#{user.gradeId})
     </insert>
     <update id="modifyGradeByUserId" >
         UPDATE `user` SET `grade_id` = #{gradeId} WHERE `id` = #{userId}
     </update>
     <update id="modifyUserById">
         UPDATE `user`
-        SET `username` = #{username},
-            `user_avator` = #{userAvator},
-            `grade_id` = #{gradeId}
-        WHERE `id` = #{id}
+        SET `username` = #{user.username},
+            `user_avatar` = #{user.userAvatar},
+            `grade_id` = #{user.gradeId}
+        WHERE `id` = #{user.id}
     </update>
     <delete id="deleteUserById">
         DELETE FROM `user` WHERE `id` = #{id}
@@ -23,11 +23,11 @@
     SELECT `grade_id` FROM user WHERE `id` = #{userId}
   </select>
     <select id="getAllUser" resultType="com.hero.poetry.entity.User">
-        SELECT `id`, `username`, `user_avator`, `grade_id`
+        SELECT `id`, `username`, `user_avatar`, `grade_id`
         FROM `user`
     </select>
     <select id="getUserById" resultType="com.hero.poetry.entity.User">
-        SELECT `id`, `username`, `user_avator`, `grade_id`
+        SELECT `id`, `username`, `user_avatar`, `grade_id`
         FROM `user`
         WHERE `id` = #{id}
     </select>

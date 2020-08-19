@@ -1,15 +1,16 @@
 package com.hero.poetry.mapper;
 
 import com.hero.poetry.entity.Feedback;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
 public interface FeedbackMapper {
-    int deleteById(Integer id);
+    int deleteById(@Param("id") Integer id);
 
-    Integer addFeedback(Feedback record);
+    Integer addFeedback(@Param("record") Feedback record);
 
     List<Feedback> getAllFeedback();
 }

@@ -4,19 +4,19 @@
     <insert id="addPoetry">
         INSERT INTO `poetrys`
         (`id`, `grade_id`, `poetry_title`, `poetry_dynasty`, `poetry_author`, `poetry_content`, `poetry_keywords`, `poetry_translation`, `poetry_image`)
-        VALUES (#{id}, #{gradeId}, #{poetryTitle}, #{poetryDynasty}, #{poetryAuthor}, #{poetryContent}, #{poetryKeywords}, #{poetryTranslation}, #{poetryImage})
+        VALUES (#{poetry.id}, #{poetry.gradeId}, #{poetry.poetryTitle}, #{poetry.poetryDynasty}, #{poetry.poetryAuthor}, #{poetry.poetryContent}, #{poetry.poetryKeywords}, #{poetry.poetryTranslation}, #{poetry.poetryImage})
     </insert>
     <update id="updatePoetryById">
         UPDATE `poetrys`
-        SET `grade_id` = #{gradeId},
-            `poetry_title` = #{poetryTitle},
-            `poetry_dynasty` = #{poetryDynasty},
-            `poetry_author` = #{poetryAuthor},
-            `poetry_content` = #{poetryContent},
-            `poetry_keywords` = #{poetryKeywords},
-            `poetry_translation` = #{poetryTranslation},
-            `poetry_image` = #{poetryImage}
-        WHERE `id` = #{id}
+        SET `grade_id` = #{poetry.gradeId},
+            `poetry_title` = #{poetry.poetryTitle},
+            `poetry_dynasty` = #{poetry.poetryDynasty},
+            `poetry_author` = #{poetry.poetryAuthor},
+            `poetry_content` = #{poetry.poetryContent},
+            `poetry_keywords` = #{poetry.poetryKeywords},
+            `poetry_translation` = #{poetry.poetryTranslation},
+            `poetry_image` = #{poetry.poetryImage}
+        WHERE `id` = #{poetry.id}
     </update>
     <delete id="deletePoetryById">
         DELETE FROM `poetrys` WHERE `id` = #{id}

@@ -10,8 +10,8 @@
     FROM `feedback`
   </select>
 
-  <insert id="addFeedback" keyColumn="id" keyProperty="id" parameterType="com.hero.poetry.entity.Feedback" useGeneratedKeys="true">
+  <insert id="addFeedback">
     insert into `feedback` (`content`, `phone`)
-    values (#{content}, #{phone})
+    values (#{record.content}, #{record.phone})
   </insert>
 </mapper>

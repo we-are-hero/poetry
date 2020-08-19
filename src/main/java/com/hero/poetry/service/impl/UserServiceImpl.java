@@ -1,8 +1,10 @@
 package com.hero.poetry.service.impl;
 
+import com.hero.poetry.entity.AdminUser;
 import com.hero.poetry.entity.Grade;
 import com.hero.poetry.entity.Rank;
 import com.hero.poetry.entity.User;
+import com.hero.poetry.mapper.AdminUserMapper;
 import com.hero.poetry.mapper.GradeMapper;
 import com.hero.poetry.mapper.RankMapper;
 import com.hero.poetry.mapper.UserMapper;
@@ -16,11 +18,13 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
     private final GradeMapper gradeMapper;
     private final RankMapper rankMapper;
+    private final AdminUserMapper adminUserMapper;
 
-    public UserServiceImpl(UserMapper userMapper, GradeMapper gradeMapper, RankMapper rankMapper) {
+    public UserServiceImpl(UserMapper userMapper, GradeMapper gradeMapper, RankMapper rankMapper, AdminUserMapper adminUserMapper) {
         this.userMapper = userMapper;
         this.gradeMapper = gradeMapper;
         this.rankMapper = rankMapper;
+        this.adminUserMapper = adminUserMapper;
     }
 
     @Override
@@ -96,5 +100,35 @@ public class UserServiceImpl implements UserService {
     public boolean checkUserExist(String userId) {
         Integer result = userMapper.checkUserExistById(userId);
         return result != null;
+    }
+
+    @Override
+    public AdminUser getAdminUserById(Integer id) {
+        return adminUserMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public List<AdminUser> getAllAdminUser() {
+        return adminUserMapper.selectAll();
+    }
+
+    @Override
+    public void updateAdminUser(AdminUser adminUser) {
+        adminUserMapper.updateByPrimaryKey(adminUser);
+    }
+
+    @Override
+    public void deleteAdminUser(Integer id) {
+        adminUserMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public void addAdminUser(AdminUser adminUser) {
+        adminUserMapper.insert(adminUser);
+    }
+
+    @Override
+    public boolean loginAdmin(AdminUser adminUser) {
+        return adminUserMapper.login(adminUser) == 1;
     }
 }

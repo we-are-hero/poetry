@@ -4,12 +4,12 @@
     <insert id="addGrade">
         INSERT INTO grade
         (`grade_name`)
-        VALUES(#{gradeName})
+        VALUES(#{grade.gradeName})
     </insert>
     <update id="updateGradeById">
         UPDATE grade
-        SET `grade_name` = #{gradeName}
-        WHERE `id` = #{id}
+        SET `grade_name` = #{grade.gradeName}
+        WHERE `id` = #{grade.id}
     </update>
     <delete id="deleteGradeById">
         DELETE FROM `grade` WHERE `id` = #{id}

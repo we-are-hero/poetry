@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hero.poetry.mapper.AdminUserMapper">
+  <select id="selectByPrimaryKey" resultType="com.hero.poetry.entity.AdminUser">
+    SELECT `id`, `username`, `password`
+    FROM `admin_user`
+    WHERE `id` = #{id}
+  </select>
+  <select id="selectAll" resultType="com.hero.poetry.entity.AdminUser">
+      SELECT `id`, `username`, `password`
+      FROM `admin_user`
+  </select>
+  <select id="login" resultType="java.lang.Integer">
+    SELECT 1
+    FROM `admin_user`
+    WHERE `username` = #{adminUser.username} AND `password` = #{adminUser.password}
+  </select>
+  <delete id="deleteByPrimaryKey">
+    DELETE FROM `admin_user`
+    WHERE `id` = #{id}
+  </delete>
+  <insert id="insert">
+    INSERT INTO `admin_user`
+    (`username`, `password`)
+    VALUES (#{record.username}, #{record.password})
+  </insert>
+  <update id="updateByPrimaryKey">
+    UPDATE `admin_user`
+    SET `username` = #{record.username},
+        `password` = #{record.password}
+    WHERE `id` = #{record.id}
+  </update>
+</mapper>

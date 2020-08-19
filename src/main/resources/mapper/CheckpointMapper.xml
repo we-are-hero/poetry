@@ -4,14 +4,14 @@
     <insert id="addCheckpoint">
         INSERT INTO `checkpoint`
         (`checkpoint_order`,`checkpoint_name`,`grade_id`,`problem_num`)
-        VALUES(#{checkpointOrder},#{checkpointName},#{gradeId},#{problemNum})
+        VALUES(#{checkpoint.checkpointOrder},#{checkpoint.checkpointName},#{checkpoint.gradeId},#{checkpoint.problemNum})
     </insert>
     <update id="updateCheckpoint">
         UPDATE `checkpoint`
-        SET `checkpoint_order` = #{checkpointOrder},
-            `checkpoint_name` = #{checkpointName},
-            `grade_id` = #{gradeId}
-        WHERE `id` = #{id}
+        SET `checkpoint_order` = #{checkpoint.checkpointOrder},
+            `checkpoint_name` = #{checkpoint.checkpointName},
+            `grade_id` = #{checkpoint.gradeId}
+        WHERE `id` = #{checkpoint.id}
     </update>
     <update id="updateProblemNum">
         UPDATE `checkpoint`

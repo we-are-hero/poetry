@@ -1,6 +1,7 @@
 package com.hero.poetry.controller;
 
 import com.hero.poetry.common.utils.R;
+import com.hero.poetry.entity.AdminUser;
 import com.hero.poetry.entity.Grade;
 import com.hero.poetry.entity.User;
 import com.hero.poetry.service.UserService;
@@ -103,5 +104,47 @@ public class UserController {
     public R deleteUser(@PathVariable String id){
         userService.deleteUser(id);
         return R.ok();
+    }
+
+    @PostMapping("/login")
+    @ApiOperation("管理员登陆验证")
+    public R loginAdmin(@RequestBody AdminUser adminUser){
+        boolean r = userService.loginAdmin(adminUser);
+        return r ? R.ok() : R.error();
+    }
+
+    @PostMapping("/admin")
+    @ApiOperation("新增管理员信息")
+    public R addAdminUser(@RequestBody AdminUser adminUser){
+        userService.addAdminUser(adminUser);
+        return R.ok();
+    }
+
+    @DeleteMapping("/admin/{id}")
+    @ApiOperation("删除管理员信息")
+    public R deleteAdminUser(@PathVariable Integer id){
+        userService.deleteAdminUser(id);
+        return R.ok();
+    }
+
+    @PutMapping("/admin")
+    @ApiOperation("修改管理员信息")
+    public R updateAdminUser(@RequestBody AdminUser adminUser){
+        userService.updateAdminUser(adminUser);
+        return R.ok();
+    }
+
+    @GetMapping("/admins")
+    @ApiOperation("获取所有管理员信息")
+    public R getAllAdminUser(){
+        List<AdminUser> list = userService.getAllAdminUser();
+        return R.ok().data("list",list);
+    }
+
+    @GetMapping("/admin/{id}")
+    @ApiOperation("根据获取管理员信息")
+    public R getAdminUserById(@PathVariable Integer id){
+        AdminUser adminUser = userService.getAdminUserById(id);
+        return R.ok().data("adminUser",adminUser);
     }
 }

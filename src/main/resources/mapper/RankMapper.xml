@@ -4,13 +4,13 @@
     <insert id="insetRank">
         INSERT INTO `rank`
         (`score`,`grade_id`,`user_id`)
-        VALUES (#{score},#{gradeId},#{userId})
+        VALUES (#{rank.score},#{rank.gradeId},#{rank.userId})
     </insert>
     <update id="updateRankById">
         UPDATE `rank`
-        SET `score` = #{score}
-            `grade_id` = #{gradeId}
-        WHERE `id` = #{id}
+        SET `score` = #{rankDataVo.score}
+            `grade_id` = #{rankDataVo.gradeId}
+        WHERE `id` = #{rankDataVo.id}
     </update>
     <update id="updateScoreByUserId">
         UPDATE `rank`
