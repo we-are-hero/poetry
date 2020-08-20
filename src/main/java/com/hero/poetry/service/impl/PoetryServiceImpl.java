@@ -1,6 +1,8 @@
 package com.hero.poetry.service.impl;
 
 import com.hero.poetry.entity.Poetry;
+import com.hero.poetry.entity.User;
+import com.hero.poetry.entity.dto.PageDTO;
 import com.hero.poetry.entity.dto.PoetryIntroductionDTO;
 import com.hero.poetry.mapper.PoetryMapper;
 import com.hero.poetry.service.PoetryService;
@@ -19,13 +21,7 @@ public class PoetryServiceImpl implements PoetryService {
     @Override
     public List<PoetryIntroductionDTO> getPoetryIntroductionByGradeId(Integer gradeId,String msg) {
         List<PoetryIntroductionDTO> list;
-        if (msg != null){
-            list = poetryMapper.getPoetryIntroductionByGradeIdCondition(gradeId,msg);
-
-        }else {
-            list = poetryMapper.getPoetryIntroductionByGradeId(gradeId);
-        }
-
+        list = poetryMapper.getPoetryIntroductionByGradeId(gradeId,msg);
         return list;
     }
 
@@ -51,12 +47,20 @@ public class PoetryServiceImpl implements PoetryService {
     }
 
     @Override
-    public List<Poetry> getAllPoetry() {
-        return poetryMapper.getAllPoetry();
+    public PageDTO<Poetry> getAllPoetry(PageDTO<Poetry> pageDTO,String msg) {
+        Integer current = pageDTO.getCurrent();
+        Integer limit = pageDTO.getLimit();
+        pageDTO.setRecords(poetryMapper.getAllPoetry((current-1)*limit,limit,msg));
+        pageDTO.setTotal(poetryMapper.getAllPoetryTotal(msg));
+        return pageDTO;
     }
 
     @Override
-    public List<Poetry> getAllPoetryByGradeId(Integer gradeId) {
-        return poetryMapper.getAllPoetryByGradeId(gradeId);
+    public PageDTO<Poetry> getAllPoetryByGradeId(Integer gradeId, PageDTO<Poetry> pageDTO,String msg) {
+        Integer current = pageDTO.getCurrent();
+        Integer limit = pageDTO.getLimit();
+        pageDTO.setRecords(poetryMapper.getAllPoetryByGradeId(gradeId,(current-1)*limit,limit,msg));
+        pageDTO.setTotal(poetryMapper.getAllPoetryByGradeIdTotal(msg));
+        return pageDTO;
     }
 }

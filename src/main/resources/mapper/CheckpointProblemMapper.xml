@@ -13,7 +13,7 @@
             `answer` = #{checkpointProblem.answer},
             `checkpoint_id` = #{checkpointProblem.checkpointId},
             `checkpoint_type` = #{checkpointProblem.checkpointType}
-        WHERE `id` = #{id}
+        WHERE `id` = #{checkpointProblem.id}
     </update>
     <delete id="deleteCheckpointProblemById">
         DELETE FROM `checkpoint_problem`
@@ -43,11 +43,15 @@
         WHERE `checkpoint_id` = #{checkpointId} AND
               `problem_order` = #{orderId}
     </select>
-    <select id="getCheckpointProblemByCheckpointId" resultType="com.hero.poetry.entity.dto.ProblemDTO">
-        SELECT `cpp`.`id`,`cpp`.`problem_order`,`cpp`.`question`,`cpp`.`answer`,
-               (SELECT `cpt`.name FROM `checkpoint_type` `cpt` WHERE `cpp`.`checkpoint_type`=`cpt`.`id`) AS `checkpointType`
-        FROM checkpoint_problem cpp
-        WHERE `cpp`.`problem_order` = #{problemOrder} AND `cpp`.`checkpoint_id` = #{checkpointId}
-        ORDER BY `cpp`.`problem_order` ASC
+    <select id="getCheckpointProblemByCheckpointId" resultType="com.hero.poetry.entity.CheckpointProblem">
+        SELECT `id`,`problem_order`,`question`,`answer`,`checkpoint_id`,`checkpoint_type`
+        FROM checkpoint_problem
+        WHERE `checkpoint_id` = #{checkpointId}
+        ORDER BY `problem_order` ASC
+    </select>
+    <select id="getProblemById" resultType="com.hero.poetry.entity.CheckpointProblem">
+        SELECT `id`,`problem_order`,`question`,`answer`,`checkpoint_id`,`checkpoint_type`
+        FROM checkpoint_problem
+        WHERE `id` = #{id}
     </select>
 </mapper>

@@ -3,6 +3,7 @@ package com.hero.poetry.mapper;
 import com.hero.poetry.entity.CheckpointProblem;
 import com.hero.poetry.entity.dto.ProblemDTO;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.beans.factory.parsing.Problem;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -13,7 +14,7 @@ public interface CheckpointProblemMapper {
 
     ProblemDTO getCheckpointProblemByCheckpointIdAndProblemOrder(@Param("checkpointId")Integer checkpointId, @Param("problemOrder")Integer problemOrder);
 
-    List<ProblemDTO> getCheckpointProblemByCheckpointId(@Param("checkpointId") Integer checkpointId);
+    List<CheckpointProblem> getCheckpointProblemByCheckpointId(@Param("checkpointId") Integer checkpointId);
 
     Integer addCheckpointProblem(@Param("checkpointProblem")CheckpointProblem checkpointProblem);
 
@@ -24,4 +25,6 @@ public interface CheckpointProblemMapper {
     Integer deleteCheckpointProblemByCheckpointId(@Param("checkpointId") Integer checkpointId);
 
     Integer checkOrderByCheckpointIdAndOrderId(@Param("checkpointId")Integer checkpointId,@Param("orderId")Integer orderId);
+
+    CheckpointProblem getProblemById(@Param("id") Integer id);
 }

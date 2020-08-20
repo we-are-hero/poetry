@@ -1,6 +1,7 @@
 package com.hero.poetry.service;
 
 import com.hero.poetry.entity.Rank;
+import com.hero.poetry.entity.dto.PageDTO;
 import com.hero.poetry.entity.dto.RankLadderDTO;
 import com.hero.poetry.entity.dto.RankServiceDTO;
 import com.hero.poetry.entity.vo.RankDataVo;
@@ -14,7 +15,9 @@ public interface RankService {
 
     void updateRank(RankDataVo rankDataVo);
 
-    List<RankLadderDTO> getAllRank(Integer gradeId);
+    PageDTO<RankLadderDTO> getAllRank(Integer gradeId, PageDTO<RankLadderDTO> pageDTO,String msg);
 
     void updateScoreByUserId(String userId,Integer score);
+
+    RankLadderDTO getRankById(Integer id);
 }

@@ -81,6 +81,10 @@ public class RankConfigService implements InitializingBean {
         init();
     }
 
+    public RankLevel getRankLevelById(Integer id) {
+        return rankConfigMapper.getRankLevelById(id);
+    }
+
     @Override
     public void afterPropertiesSet() throws Exception {
         this.init();

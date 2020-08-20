@@ -1,9 +1,12 @@
 package com.hero.poetry.controller;
 
+import com.fasterxml.jackson.databind.node.TextNode;
 import com.hero.poetry.common.utils.R;
 import com.hero.poetry.entity.AdminUser;
 import com.hero.poetry.entity.Grade;
 import com.hero.poetry.entity.User;
+import com.hero.poetry.entity.dto.PageDTO;
+import com.hero.poetry.entity.vo.QueryVO;
 import com.hero.poetry.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -85,11 +88,11 @@ public class UserController {
         return R.ok().data("isExist",result);
     }
 
-    @GetMapping("/users")
+    @PostMapping("/users/{current}/{limit}")
     @ApiOperation("获取全部用户")
-    public R getAllUser(){
-        List<User> list = userService.getAllUser();
-        return R.ok().data("list",list);
+    public R getAllUser(@PathVariable Integer current,@PathVariable Integer limit,@RequestBody(required = false) QueryVO queryVO){
+        PageDTO<User> pageDTO = userService.getAllUser(new PageDTO<>(current, limit),queryVO.getMsg());
+        return R.ok().data("total",pageDTO.getTotal()).data("list",pageDTO.getRecords());
     }
 
     @PutMapping("/user")
@@ -134,11 +137,11 @@ public class UserController {
         return R.ok();
     }
 
-    @GetMapping("/admins")
+    @PostMapping("/admins/{current}/{limit}")
     @ApiOperation("获取所有管理员信息")
-    public R getAllAdminUser(){
-        List<AdminUser> list = userService.getAllAdminUser();
-        return R.ok().data("list",list);
+    public R getAllAdminUser(@PathVariable Integer current,@PathVariable Integer limit,@RequestBody(required = false) QueryVO queryVO){
+        PageDTO<AdminUser> pageDTO = userService.getAllAdminUser(new PageDTO<>(current, limit),queryVO.getMsg());
+        return R.ok().data("total",pageDTO.getTotal()).data("list",pageDTO.getRecords());
     }
 
     @GetMapping("/admin/{id}")

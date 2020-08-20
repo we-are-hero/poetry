@@ -1,10 +1,11 @@
 package com.hero.poetry.controller;
 
 import com.hero.poetry.common.utils.R;
-import com.hero.poetry.entity.Rank;
 import com.hero.poetry.entity.RankLevel;
+import com.hero.poetry.entity.dto.PageDTO;
 import com.hero.poetry.entity.dto.RankLadderDTO;
 import com.hero.poetry.entity.dto.RankServiceDTO;
+import com.hero.poetry.entity.vo.QueryVO;
 import com.hero.poetry.entity.vo.RankDataVo;
 import com.hero.poetry.service.RankService;
 import com.hero.poetry.service.config.RankConfigService;
@@ -70,17 +71,31 @@ public class RankController {
         return R.ok().data("list",allRankLevel);
     }
 
-    @ApiOperation("修改段位")
+    @ApiOperation("根据id获取段位水平")
+    @GetMapping("/rankLevel/{id}")
+    public R getRankLevelById(@PathVariable Integer id){
+        RankLevel rankLevel = rankConfigService.getRankLevelById(id);
+        return R.ok().data("rankLevel",rankLevel);
+    }
+
+    @ApiOperation("修改排名")
     @PutMapping("/rank")
     public R updateRankLevel(@RequestBody RankDataVo rankDataVo){
         rankService.updateRank(rankDataVo);
         return R.ok();
     }
 
-    @ApiOperation("获取全部段位")
-    @GetMapping("/ranks/{gradeId}")
-    public R getAllRank(@PathVariable Integer gradeId){
-        List<RankLadderDTO> allRank = rankService.getAllRank(gradeId);
-        return R.ok().data("list",allRank);
+    @ApiOperation("根据年级获取全部排名")
+    @PostMapping("/ranks/{gradeId}/{current}/{limit}")
+    public R getAllRank(@PathVariable Integer gradeId,@PathVariable Integer current,@PathVariable Integer limit,@RequestBody(required = false) QueryVO queryVO){
+        PageDTO<RankLadderDTO> pageDTO = rankService.getAllRank(gradeId,new PageDTO<>(current, limit),queryVO.getMsg());
+        return R.ok().data("total",pageDTO.getTotal()).data("list",pageDTO.getRecords());
+    }
+
+    @ApiOperation("根据id获取排名")
+    @GetMapping("/rank/{id}")
+    public R getRankById(@PathVariable Integer id){
+        RankLadderDTO rankLadderDTO = rankService.getRankById(id);
+        return R.ok().data("rank",rankLadderDTO);
     }
 }

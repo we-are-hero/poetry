@@ -25,6 +25,10 @@
     <select id="getAllUser" resultType="com.hero.poetry.entity.User">
         SELECT `id`, `username`, `user_avatar`, `grade_id`
         FROM `user`
+        <if test="msg != null and msg !=''">
+            WHERE `username` LIKE concat('%', #{msg}, '%')
+        </if>
+        LIMIT #{m},#{n}
     </select>
     <select id="getUserById" resultType="com.hero.poetry.entity.User">
         SELECT `id`, `username`, `user_avatar`, `grade_id`
@@ -35,5 +39,9 @@
         SELECT 1
         FROM `user`
         WHERE `id` = #{id}
+    </select>
+    <select id="getAllUserTotal" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM `user`
     </select>
 </mapper>

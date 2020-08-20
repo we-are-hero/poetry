@@ -2,7 +2,9 @@ package com.hero.poetry.service;
 
 import com.hero.poetry.entity.Checkpoint;
 import com.hero.poetry.entity.CheckpointProblem;
+import com.hero.poetry.entity.CheckpointType;
 import com.hero.poetry.entity.dto.AllCheckpointWithUserPassDTO;
+import com.hero.poetry.entity.dto.PageDTO;
 import com.hero.poetry.entity.dto.ProblemDTO;
 import com.hero.poetry.entity.vo.CheckpointVO;
 import com.hero.poetry.entity.vo.ProblemAnswerVO;
@@ -27,15 +29,21 @@ public interface CheckpointService {
 
     void updateCheckpoint(CheckpointVO checkpointVO);
 
-    List<ProblemDTO> getCheckpointProblemByCheckpointId(Integer checkpointId);
+    List<CheckpointProblem> getCheckpointProblemByCheckpointId(Integer checkpointId);
 
-    List<Checkpoint> getAllCheckpointByGradeId(Integer gradeId);
+    PageDTO<Checkpoint> getAllCheckpointByGradeId(Integer gradeId, PageDTO<Checkpoint> pageDTO);
 
-    List<Checkpoint> getAllCheckpoint();
+    PageDTO<Checkpoint> getAllCheckpoint(PageDTO<Checkpoint> pageDTO);
 
     void addProblem(CheckpointProblem checkpointProblem);
 
     void deleteProblem(Integer id);
 
     void updateProblem(CheckpointProblem checkpointProblem);
+
+    Checkpoint getCheckpointById(Integer id);
+
+    List<CheckpointType> getAllCheckpointType();
+
+    CheckpointProblem getProblemById(Integer id);
 }

@@ -2,6 +2,7 @@ package com.hero.poetry.entity;
 
 public class Poetry {
     private Integer id;
+    private Integer gradeId;
     private String poetryTitle;
     private String poetryDynasty;
     private String poetryAuthor;
@@ -17,7 +18,7 @@ public class Poetry {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -75,6 +76,14 @@ public class Poetry {
 
     public void setPoetryImage(String poetryImage) {
         this.poetryImage = poetryImage;
+    }
+
+    public Integer getGradeId() {
+        return gradeId;
+    }
+
+    public void setGradeId(Integer gradeId) {
+        this.gradeId = gradeId;
     }
 
     @Override

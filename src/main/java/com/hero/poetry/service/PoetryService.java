@@ -1,6 +1,8 @@
 package com.hero.poetry.service;
 
 import com.hero.poetry.entity.Poetry;
+import com.hero.poetry.entity.User;
+import com.hero.poetry.entity.dto.PageDTO;
 import com.hero.poetry.entity.dto.PoetryIntroductionDTO;
 
 import java.util.List;
@@ -17,7 +19,7 @@ public interface PoetryService {
 
     void updatePoetry(Poetry poetry);
 
-    List<Poetry> getAllPoetry();
+    PageDTO<Poetry> getAllPoetry(PageDTO<Poetry> pageDTO,String msg);
 
-    List<Poetry> getAllPoetryByGradeId(Integer gradeId);
+    PageDTO<Poetry> getAllPoetryByGradeId(Integer gradeId, PageDTO<Poetry> pageDTO,String msg);
 }

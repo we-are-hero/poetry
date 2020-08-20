@@ -14,7 +14,9 @@ public interface AdminUserMapper {
 
     AdminUser selectByPrimaryKey(@Param("id") Integer id);
 
-    List<AdminUser> selectAll();
+    List<AdminUser> selectAll(@Param("m") Integer m,@Param("n") Integer n,@Param("msg") String msg);
+
+    Integer selectAllTotal();
 
     Integer updateByPrimaryKey(@Param("record") AdminUser record);
 

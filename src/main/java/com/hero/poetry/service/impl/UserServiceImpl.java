@@ -4,6 +4,7 @@ import com.hero.poetry.entity.AdminUser;
 import com.hero.poetry.entity.Grade;
 import com.hero.poetry.entity.Rank;
 import com.hero.poetry.entity.User;
+import com.hero.poetry.entity.dto.PageDTO;
 import com.hero.poetry.mapper.AdminUserMapper;
 import com.hero.poetry.mapper.GradeMapper;
 import com.hero.poetry.mapper.RankMapper;
@@ -75,9 +76,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getAllUser() {
-        List<User> allUser = userMapper.getAllUser();
-        return allUser;
+    public PageDTO<User> getAllUser(PageDTO<User> pageDTO,String msg) {
+        Integer current = pageDTO.getCurrent();
+        Integer limit = pageDTO.getLimit();
+        pageDTO.setRecords(userMapper.getAllUser((current-1)*limit,limit,msg));
+        pageDTO.setTotal(userMapper.getAllUserTotal());
+        return pageDTO;
     }
 
     @Override
@@ -108,8 +112,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<AdminUser> getAllAdminUser() {
-        return adminUserMapper.selectAll();
+    public PageDTO<AdminUser> getAllAdminUser(PageDTO<AdminUser> pageDTO,String msg) {
+        Integer current = pageDTO.getCurrent();
+        Integer limit = pageDTO.getLimit();
+        pageDTO.setRecords(adminUserMapper.selectAll((current-1)*limit,limit,msg));
+        pageDTO.setTotal(adminUserMapper.selectAllTotal());
+        return pageDTO;
     }
 
     @Override

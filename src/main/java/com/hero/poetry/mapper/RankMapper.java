@@ -12,9 +12,11 @@ import java.util.List;
 public interface RankMapper {
     Integer getScoreByUserId(@Param("userId") String userId);
 
+    List<RankLadderDTO> getAllScoreByGradeIdLimitPage(@Param("gradeId") Integer gradeId,@Param("m") Integer m,@Param("n") Integer n,@Param("msg") String msg);
+
     List<RankLadderDTO> getAllScoreByGradeId(@Param("gradeId") Integer gradeId);
 
-    RankLadderDTO getRankById(@Param("id") Integer id);
+    RankLadderDTO getRankLadderById(@Param("id") Integer id);
 
     Integer updateRankById(@Param("rankDataVo") RankDataVo rankDataVo);
 
@@ -23,4 +25,6 @@ public interface RankMapper {
     Integer updateScoreByUserId(@Param("userId") String userId,@Param("score") Integer score);
 
     Integer insetRank(@Param("rank") Rank rank);
+
+    Integer getAllScoreByGradeIdLimitPageTotal(@Param("gradeId") Integer gradeId, @Param("msg") String msg);
 }

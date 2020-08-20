@@ -3,13 +3,16 @@ package com.hero.poetry.controller;
 import com.hero.poetry.common.utils.R;
 import com.hero.poetry.entity.Checkpoint;
 import com.hero.poetry.entity.CheckpointProblem;
+import com.hero.poetry.entity.CheckpointType;
 import com.hero.poetry.entity.dto.AllCheckpointWithUserPassDTO;
+import com.hero.poetry.entity.dto.PageDTO;
 import com.hero.poetry.entity.dto.ProblemDTO;
 import com.hero.poetry.entity.vo.CheckpointVO;
 import com.hero.poetry.entity.vo.ProblemAnswerVO;
 import com.hero.poetry.service.CheckpointService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.parsing.Problem;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -74,24 +77,31 @@ public class CheckPointController {
         return R.ok();
     }
 
-    @GetMapping("checkpoints/{gradeId}")
+    @GetMapping("checkpoints/{gradeId}/{current}/{limit}")
     @ApiOperation("根据年级获取全部关卡")
-    public R getAllCheckpointByGradeId(@PathVariable Integer gradeId){
-        List<Checkpoint> list = checkpointService.getAllCheckpointByGradeId(gradeId);
-        return R.ok().data("list",list);
+    public R getAllCheckpointByGradeId(@PathVariable Integer gradeId,@PathVariable Integer current,@PathVariable Integer limit){
+        PageDTO<Checkpoint> pageDTO = checkpointService.getAllCheckpointByGradeId(gradeId,new PageDTO<Checkpoint>(current,limit));
+        return R.ok().data("total",pageDTO.getTotal()).data("list",pageDTO.getRecords());
     }
 
-    @GetMapping("checkpoints")
+    @GetMapping("checkpoints/{current}/{limit}")
     @ApiOperation("获取全部关卡")
-    public R getAllCheckpointByGradeId(){
-        List<Checkpoint> list = checkpointService.getAllCheckpoint();
-        return R.ok().data("list",list);
+    public R getAllCheckpointByGradeId(@PathVariable Integer current,@PathVariable Integer limit){
+        PageDTO<Checkpoint> pageDTO = checkpointService.getAllCheckpoint(new PageDTO<Checkpoint>(current,limit));
+        return R.ok().data("total",pageDTO.getTotal()).data("list",pageDTO.getRecords());
+    }
+
+    @GetMapping("checkpoint/{id}")
+    @ApiOperation("根据id获取关卡")
+    public R getCheckpointById(@PathVariable Integer id){
+        Checkpoint checkpoint = checkpointService.getCheckpointById(id);
+        return R.ok().data("checkpoint",checkpoint);
     }
 
     @GetMapping("problems/{checkpointId}")
     @ApiOperation("根据关卡获取全部问题")
-    public R getProblemById(@PathVariable Integer checkpointId){
-        List<ProblemDTO> list = checkpointService.getCheckpointProblemByCheckpointId(checkpointId);
+    public R getProblemByCheckpointId(@PathVariable Integer checkpointId){
+        List<CheckpointProblem> list = checkpointService.getCheckpointProblemByCheckpointId(checkpointId);
         return R.ok().data("list",list);
     }
 
@@ -114,5 +124,19 @@ public class CheckPointController {
     public R updateProblem(@RequestBody CheckpointProblem checkpointProblem){
         checkpointService.updateProblem(checkpointProblem);
         return R.ok();
+    }
+
+    @GetMapping("problem/{id}")
+    @ApiOperation("根据id获取问题")
+    public R getProblemById(@PathVariable Integer id){
+        CheckpointProblem checkpointProblem = checkpointService.getProblemById(id);
+        return R.ok().data("problem",checkpointProblem);
+    }
+
+    @GetMapping("problem/type")
+    @ApiOperation("获取所有问题类型")
+    public R getAllCheckpointType(){
+        List<CheckpointType> allCheckpointType = checkpointService.getAllCheckpointType();
+        return R.ok().data("list",allCheckpointType);
     }
 }

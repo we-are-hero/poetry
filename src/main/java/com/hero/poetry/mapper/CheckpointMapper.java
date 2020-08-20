@@ -24,9 +24,15 @@ public interface CheckpointMapper {
 
     Integer deleteCheckpoint(@Param("id")Integer id);
 
-    List<Checkpoint> getAllCheckpointByGradeId(@Param("gradeId") Integer gradeId);
+    List<Checkpoint> getAllCheckpointByGradeId(@Param("gradeId") Integer gradeId,@Param("m") Integer m,@Param("n") Integer n);
 
-    List<Checkpoint> getAllCheckpoint();
+    Integer getAllCheckpointByGradeIdTotal(@Param("gradeId") Integer gradeId);
+
+    List<Checkpoint> getAllCheckpoint(@Param("m") Integer m,@Param("n") Integer n);
+
+    Integer getAllCheckpointTotal();
 
     Integer checkOrderByGradeIdAndOrderId(@Param("gradeId")Integer gradeId,@Param("orderId")Integer orderId);
+
+    Checkpoint getCheckpointById(Integer id);
 }

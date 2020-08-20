@@ -5,12 +5,15 @@ import com.hero.poetry.common.utils.ResultCode;
 import com.hero.poetry.common.utils.WebCache;
 import com.hero.poetry.entity.Checkpoint;
 import com.hero.poetry.entity.CheckpointProblem;
+import com.hero.poetry.entity.CheckpointType;
 import com.hero.poetry.entity.dto.AllCheckpointWithUserPassDTO;
+import com.hero.poetry.entity.dto.PageDTO;
 import com.hero.poetry.entity.dto.ProblemDTO;
 import com.hero.poetry.entity.vo.CheckpointVO;
 import com.hero.poetry.entity.vo.ProblemAnswerVO;
 import com.hero.poetry.mapper.CheckpointMapper;
 import com.hero.poetry.mapper.CheckpointProblemMapper;
+import com.hero.poetry.mapper.CheckpointTypeMapper;
 import com.hero.poetry.mapper.CheckpointUserMapper;
 import com.hero.poetry.service.CheckpointService;
 import com.hero.poetry.service.RankService;
@@ -31,14 +34,16 @@ public class CheckpointServiceImpl implements CheckpointService {
     private final CheckpointMapper checkpointMapper;
     private final CheckpointUserMapper checkpointUserMapper;
     private final CheckpointProblemMapper checkpointProblemMapper;
+    private final CheckpointTypeMapper checkpointTypeMapper;
 
-    public CheckpointServiceImpl(UserService userService, RankConfigService rankConfigService, RankService rankService, CheckpointMapper checkpointMapper, CheckpointUserMapper checkpointUserMapper, CheckpointProblemMapper checkpointProblemMapper) {
+    public CheckpointServiceImpl(UserService userService, RankConfigService rankConfigService, RankService rankService, CheckpointMapper checkpointMapper, CheckpointUserMapper checkpointUserMapper, CheckpointProblemMapper checkpointProblemMapper, CheckpointTypeMapper checkpointTypeMapper) {
         this.userService = userService;
         this.rankConfigService = rankConfigService;
         this.rankService = rankService;
         this.checkpointMapper = checkpointMapper;
         this.checkpointUserMapper = checkpointUserMapper;
         this.checkpointProblemMapper = checkpointProblemMapper;
+        this.checkpointTypeMapper = checkpointTypeMapper;
     }
 
     @Override
@@ -63,7 +68,7 @@ public class CheckpointServiceImpl implements CheckpointService {
         int n = checkpointProblemMapper.checkProblemAnswer(problemOrder.getCheckpointId(),problemOrder.getProblemOrder(),problemOrder.getProblemAnswer());
         if (n != 1)
             return false;
-        WebCache.putCache(problemOrder.getUserId() + problemOrder.getCheckpointId() + problemOrder.getProblemOrder(),new WebCache<>().timeLimit(60*30));
+        WebCache.putCache(problemOrder.getUserId() + problemOrder.getCheckpointId() + problemOrder.getProblemOrder(),new WebCache<>().timeLimit(60*60));
         //获取关卡总问题数
         String cacheId = problemOrder.getUserId() + problemOrder.getCheckpointId();
         WebCache<Integer> maxOrder = WebCache.getCache(cacheId);
@@ -118,22 +123,32 @@ public class CheckpointServiceImpl implements CheckpointService {
     }
 
     @Override
-    public List<ProblemDTO> getCheckpointProblemByCheckpointId(Integer checkpointId) {
+    public List<CheckpointProblem> getCheckpointProblemByCheckpointId(Integer checkpointId) {
         return checkpointProblemMapper.getCheckpointProblemByCheckpointId(checkpointId);
     }
 
     @Override
-    public List<Checkpoint> getAllCheckpointByGradeId(Integer gradeId) {
-        return checkpointMapper.getAllCheckpointByGradeId(gradeId);
+    public PageDTO<Checkpoint> getAllCheckpointByGradeId(Integer gradeId, PageDTO<Checkpoint> pageDTO) {
+        Integer current = pageDTO.getCurrent();
+        Integer limit = pageDTO.getLimit();
+        pageDTO.setRecords(checkpointMapper.getAllCheckpointByGradeId(gradeId,(current-1)*limit,limit));
+        pageDTO.setTotal(checkpointMapper.getAllCheckpointByGradeIdTotal(gradeId));
+        return pageDTO;
     }
 
     @Override
-    public List<Checkpoint> getAllCheckpoint() {
-        return checkpointMapper.getAllCheckpoint();
+    public PageDTO<Checkpoint> getAllCheckpoint(PageDTO<Checkpoint> pageDTO) {
+        Integer current = pageDTO.getCurrent();
+        Integer limit = pageDTO.getLimit();
+        pageDTO.setRecords(checkpointMapper.getAllCheckpoint((current-1)*limit,limit));
+        pageDTO.setTotal(checkpointMapper.getAllCheckpointTotal());
+        return pageDTO;
     }
 
     @Override
     public void addProblem(CheckpointProblem checkpointProblem) {
+        int num = checkpointMapper.getProblemNum(checkpointProblem.getCheckpointId());
+        checkpointMapper.updateProblemNum(num + 1);
         checkpointProblemMapper.addCheckpointProblem(checkpointProblem);
     }
 
@@ -145,6 +160,21 @@ public class CheckpointServiceImpl implements CheckpointService {
     @Override
     public void updateProblem(CheckpointProblem checkpointProblem) {
         checkpointProblemMapper.updateCheckpointProblem(checkpointProblem);
+    }
+
+    @Override
+    public Checkpoint getCheckpointById(Integer id) {
+        return checkpointMapper.getCheckpointById(id);
+    }
+
+    @Override
+    public List<CheckpointType> getAllCheckpointType() {
+        return checkpointTypeMapper.getAllCheckpointType();
+    }
+
+    @Override
+    public CheckpointProblem getProblemById(Integer id) {
+        return checkpointProblemMapper.getProblemById(id);
     }
 
     @Override

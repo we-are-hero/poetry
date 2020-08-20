@@ -3,8 +3,8 @@
 <mapper namespace="com.hero.poetry.mapper.PoetryMapper">
     <insert id="addPoetry">
         INSERT INTO `poetrys`
-        (`id`, `grade_id`, `poetry_title`, `poetry_dynasty`, `poetry_author`, `poetry_content`, `poetry_keywords`, `poetry_translation`, `poetry_image`)
-        VALUES (#{poetry.id}, #{poetry.gradeId}, #{poetry.poetryTitle}, #{poetry.poetryDynasty}, #{poetry.poetryAuthor}, #{poetry.poetryContent}, #{poetry.poetryKeywords}, #{poetry.poetryTranslation}, #{poetry.poetryImage})
+        (`grade_id`, `poetry_title`, `poetry_dynasty`, `poetry_author`, `poetry_content`, `poetry_keywords`, `poetry_translation`, `poetry_image`)
+        VALUES (#{poetry.gradeId}, #{poetry.poetryTitle}, #{poetry.poetryDynasty}, #{poetry.poetryAuthor}, #{poetry.poetryContent}, #{poetry.poetryKeywords}, #{poetry.poetryTranslation}, #{poetry.poetryImage})
     </insert>
     <update id="updatePoetryById">
         UPDATE `poetrys`
@@ -26,26 +26,47 @@
         SELECT `id`,`poetry_title`,`poetry_dynasty`,`poetry_author`,`poetry_image`
         FROM `poetrys`
         WHERE `grade_id` = #{gradeId}
-    </select>
-    <select id="getPoetryIntroductionByGradeIdCondition" resultType="com.hero.poetry.entity.dto.PoetryIntroductionDTO">
-        SELECT `id`,`poetry_title`,`poetry_dynasty`,`poetry_author`,`poetry_image`
-        FROM `poetrys`
-        WHERE `grade_id` = #{gradeId} AND
-              (poetry_title LIKE concat('%', #{msg}, '%') OR poetry_dynasty LIKE concat('%', #{msg}, '%') OR poetry_author LIKE concat('%', #{msg}, '%'))
+        <if test="msg !=null and msg !=''">
+            AND
+            (poetry_title LIKE concat('%', #{msg}, '%') OR poetry_dynasty LIKE concat('%', #{msg}, '%') OR poetry_author LIKE concat('%', #{msg}, '%'))
+        </if>
     </select>
     <select id="getPoetryById" resultType="com.hero.poetry.entity.Poetry">
-        SELECT `id`,`poetry_title`,`poetry_dynasty`,`poetry_author`,`poetry_content`,`poetry_keywords`,`poetry_translation`
+        SELECT `id`,`grade_id`,`poetry_title`,`poetry_dynasty`,`poetry_author`,`poetry_content`,`poetry_keywords`,`poetry_translation`,`poetry_image`
         FROM `poetrys`
         WHERE `id` = #{poetryId}
     </select>
     <select id="getAllPoetry" resultType="com.hero.poetry.entity.Poetry">
         SELECT `id`, `grade_id`, `poetry_title`, `poetry_dynasty`, `poetry_author`, `poetry_content`, `poetry_keywords`, `poetry_translation`, `poetry_image`
         FROM `poetrys`
+        <if test="msg !=null and msg !=''">
+            WHERE `poetry_title` LIKE concat('%', #{msg}, '%') OR `poetry_dynasty` LIKE concat('%', #{msg}, '%') OR `poetry_author` LIKE concat('%', #{msg}, '%')
+        </if>
+        LIMIT #{m},#{n}
     </select>
     <select id="getAllPoetryByGradeId" resultType="com.hero.poetry.entity.Poetry">
         SELECT `id`, `grade_id`, `poetry_title`, `poetry_dynasty`, `poetry_author`, `poetry_content`, `poetry_keywords`, `poetry_translation`, `poetry_image`
         FROM `poetrys`
         WHERE `grade_id` = #{gradeId}
+        <if test="msg !=null and msg !=''">
+            AND (`poetry_title` LIKE concat('%', #{msg}, '%') OR `poetry_dynasty` LIKE concat('%', #{msg}, '%') OR `poetry_author` LIKE concat('%', #{msg}, '%'))
+        </if>
+        LIMIT #{m},#{n}
+    </select>
+    <select id="getAllPoetryTotal" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM `poetrys`
+        <if test="msg !=null and msg !=''">
+            WHERE `poetry_title` LIKE concat('%', #{msg}, '%') OR `poetry_dynasty` LIKE concat('%', #{msg}, '%') OR `poetry_author` LIKE concat('%', #{msg}, '%')
+        </if>
+    </select>
+    <select id="getAllPoetryByGradeIdTotal" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM `poetrys`
+        WHERE `grade_id` = #{gradeId}
+        <if test="msg !=null and msg !=''">
+            AND (`poetry_title` LIKE concat('%', #{msg}, '%') OR `poetry_dynasty` LIKE concat('%', #{msg}, '%') OR `poetry_author` LIKE concat('%', #{msg}, '%'))
+        </if>
     </select>
 
 </mapper>

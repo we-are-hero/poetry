@@ -16,4 +16,6 @@ public interface RankConfigMapper {
     Integer deleteLevel(@Param("id") Integer id);
 
     Integer updateLevel(@Param("rankLevel") RankLevel rankLevel);
+
+    RankLevel getRankLevelById(@Param("id") Integer id);
 }

@@ -2,7 +2,9 @@ package com.hero.poetry.controller;
 
 import com.hero.poetry.common.utils.R;
 import com.hero.poetry.entity.Poetry;
+import com.hero.poetry.entity.dto.PageDTO;
 import com.hero.poetry.entity.dto.PoetryIntroductionDTO;
+import com.hero.poetry.entity.vo.QueryVO;
 import com.hero.poetry.service.PoetryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -21,7 +23,7 @@ public class PoetryController {
         this.poetryService = poetryService;
     }
 
-    @ApiOperation("根据年级id获取古诗")
+    @ApiOperation("根据年级id获取古诗介绍")
     @PostMapping("/getPoetryIntroduction/{gradeId}")
     public R getPoetryIntroduction(@PathVariable Integer gradeId, @RequestBody(required = false) String msg) {
         List<PoetryIntroductionDTO> poetryIntroductionByGradeId = poetryService.getPoetryIntroductionByGradeId(gradeId, msg);
@@ -50,23 +52,23 @@ public class PoetryController {
     }
 
     @ApiOperation("修改古诗")
-    @GetMapping("/poetry")
+    @PutMapping("/poetry")
     public R updatePoetry(@RequestBody Poetry poetry) {
         poetryService.updatePoetry(poetry);
         return R.ok();
     }
 
     @ApiOperation("查询古诗")
-    @GetMapping("/poetrys")
-    public R getAllPoetry() {
-        List<Poetry> allPoetry = poetryService.getAllPoetry();
-        return R.ok().data("list",allPoetry);
+    @PostMapping("/poetrys/{current}/{limit}")
+    public R getAllPoetry(@PathVariable Integer current,@PathVariable Integer limit,@RequestBody(required = false) QueryVO queryVO) {
+        PageDTO<Poetry> pageDTO = poetryService.getAllPoetry(new PageDTO<>(current, limit),queryVO.getMsg());
+        return R.ok().data("total",pageDTO.getTotal()).data("list",pageDTO.getRecords());
     }
 
     @ApiOperation("根据gradeId查询古诗")
-    @GetMapping("/poetrys/{id}")
-    public R getAllPoetry(@PathVariable Integer id) {
-        List<Poetry> allPoetry = poetryService.getAllPoetryByGradeId(id);
-        return R.ok().data("list",allPoetry);
+    @PostMapping("/poetrys/{id}/{current}/{limit}")
+    public R getAllPoetry(@PathVariable Integer id,@PathVariable Integer current,@PathVariable Integer limit,@RequestBody(required = false) QueryVO queryVO) {
+        PageDTO<Poetry> pageDTO = poetryService.getAllPoetryByGradeId(id,new PageDTO<>(current, limit),queryVO.getMsg());
+        return R.ok().data("total",pageDTO.getTotal()).data("list",pageDTO.getRecords());
     }
 }

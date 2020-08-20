@@ -3,6 +3,7 @@ package com.hero.poetry.service;
 import com.hero.poetry.entity.AdminUser;
 import com.hero.poetry.entity.Grade;
 import com.hero.poetry.entity.User;
+import com.hero.poetry.entity.dto.PageDTO;
 
 import java.util.List;
 
@@ -23,7 +24,7 @@ public interface UserService {
 
     void addUser(User user);
 
-    List<User> getAllUser();
+    PageDTO<User> getAllUser(PageDTO<User> pageDTO,String msg);
 
     void updateUser(User user);
 
@@ -35,7 +36,7 @@ public interface UserService {
 
     AdminUser getAdminUserById(Integer id);
 
-    List<AdminUser> getAllAdminUser();
+    PageDTO<AdminUser> getAllAdminUser(PageDTO<AdminUser> pageDTO,String msg);
 
     void updateAdminUser(AdminUser adminUser);
 

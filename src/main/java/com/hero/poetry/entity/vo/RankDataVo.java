@@ -3,7 +3,6 @@ package com.hero.poetry.entity.vo;
 public class RankDataVo {
     private Integer id;
     private Integer score;
-    private Integer gradeId;
 
     public RankDataVo() {
     }
@@ -24,11 +23,4 @@ public class RankDataVo {
         this.score = score;
     }
 
-    public Integer getGradeId() {
-        return gradeId;
-    }
-
-    public void setGradeId(Integer gradeId) {
-        this.gradeId = gradeId;
-    }
 }

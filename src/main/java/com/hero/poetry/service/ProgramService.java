@@ -1,6 +1,7 @@
 package com.hero.poetry.service;
 
 import com.hero.poetry.entity.Feedback;
+import com.hero.poetry.entity.dto.PageDTO;
 
 import java.util.List;
 
@@ -9,5 +10,5 @@ public interface ProgramService {
 
     void deleteFeedback(Integer id);
 
-    List<Feedback> getAllFeedback();
+    PageDTO<Feedback> getAllFeedback(PageDTO<Feedback> pageDTO, String msg);
 }

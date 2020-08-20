@@ -6,8 +6,19 @@
     where `id` = #{id}
   </delete>
   <select id="getAllFeedback" resultType="com.hero.poetry.entity.Feedback">
-    SELECT `content`, `phone`
+    SELECT `id`,`content`, `phone`
     FROM `feedback`
+    <if test="msg != null and msg !=''">
+      WHERE `content` LIKE concat('%', #{msg}, '%') OR `phone` LIKE concat('%', #{msg}, '%')
+    </if>
+    LIMIT #{m},#{n}
+  </select>
+  <select id="getAllFeedbackTotal" resultType="java.lang.Integer">
+      SELECT COUNT(1)
+      FROM `feedback`
+      <if test="msg != null and msg !=''">
+        WHERE `content` LIKE concat('%', #{msg}, '%') OR `phone` LIKE concat('%', #{msg}, '%')
+      </if>
   </select>
 
   <insert id="addFeedback">

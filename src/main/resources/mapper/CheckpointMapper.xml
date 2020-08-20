@@ -43,10 +43,26 @@
         FROM `checkpoint`
         WHERE `grade_id`=#{gradeId}
         ORDER BY `checkpoint_order` ASC
+        LIMIT #{m},#{n}
     </select>
     <select id="getAllCheckpoint" resultType="com.hero.poetry.entity.Checkpoint">
         SELECT `id`,`checkpoint_order`,`checkpoint_name`,`grade_id`,`problem_num`
         FROM `checkpoint`
         ORDER BY `checkpoint_order` ASC
+        LIMIT #{m},#{n}
+    </select>
+    <select id="getAllCheckpointByGradeIdTotal" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM `checkpoint`
+        WHERE `grade_id`=#{gradeId}
+    </select>
+    <select id="getAllCheckpointTotal" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM `checkpoint`
+    </select>
+    <select id="getCheckpointById" resultType="com.hero.poetry.entity.Checkpoint">
+        SELECT `id`,`checkpoint_order`,`checkpoint_name`,`grade_id`,`problem_num`
+        FROM `checkpoint`
+        WHERE `id` = #{id}
     </select>
 </mapper>

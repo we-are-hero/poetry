@@ -1,6 +1,7 @@
 package com.hero.poetry.service.impl;
 
 import com.hero.poetry.entity.Rank;
+import com.hero.poetry.entity.dto.PageDTO;
 import com.hero.poetry.entity.dto.RankLadderDTO;
 import com.hero.poetry.entity.dto.RankServiceDTO;
 import com.hero.poetry.entity.vo.RankDataVo;
@@ -52,13 +53,26 @@ public class RankServiceImpl implements RankService {
     }
 
     @Override
-    public List<RankLadderDTO> getAllRank(Integer gradeId) {
-        List<RankLadderDTO> allScoreByGradeId = rankMapper.getAllScoreByGradeId(gradeId);
-        return allScoreByGradeId;
+    public PageDTO<RankLadderDTO> getAllRank(Integer gradeId, PageDTO<RankLadderDTO> pageDTO,String msg) {
+        Integer current = pageDTO.getCurrent();
+        Integer limit = pageDTO.getLimit();
+        List<RankLadderDTO> allScoreByGradeIdLimitPage = rankMapper.getAllScoreByGradeIdLimitPage(gradeId, (current - 1) * limit, limit, msg);
+        for (int i=0;i<allScoreByGradeIdLimitPage.size();i++) {
+            String rankName = rankConfigService.getRankByScore(allScoreByGradeIdLimitPage.get(i).getScore()).getLevel();
+            allScoreByGradeIdLimitPage.get(i).setRankName(rankName);
+        }
+        pageDTO.setRecords(allScoreByGradeIdLimitPage);
+        pageDTO.setTotal(rankMapper.getAllScoreByGradeIdLimitPageTotal(gradeId,msg));
+        return pageDTO;
     }
 
     @Override
     public void updateScoreByUserId(String userId, Integer score) {
         rankMapper.updateScoreByUserId(userId,score);
+    }
+
+    @Override
+    public RankLadderDTO getRankById(Integer id) {
+        return rankMapper.getRankLadderById(id);
     }
 }

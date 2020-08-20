@@ -9,11 +9,19 @@
   <select id="selectAll" resultType="com.hero.poetry.entity.AdminUser">
       SELECT `id`, `username`, `password`
       FROM `admin_user`
+      <if test="msg !=null and msg !=''">
+        WHERE `username` LIKE concat('%', #{msg}, '%')
+      </if>
+      LIMIT #{m},#{n}
   </select>
   <select id="login" resultType="java.lang.Integer">
     SELECT 1
     FROM `admin_user`
     WHERE `username` = #{adminUser.username} AND `password` = #{adminUser.password}
+  </select>
+  <select id="selectAllTotal" resultType="java.lang.Integer">
+    SELECT COUNT(1)
+    FROM `admin_user`
   </select>
   <delete id="deleteByPrimaryKey">
     DELETE FROM `admin_user`

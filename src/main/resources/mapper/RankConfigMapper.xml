@@ -4,19 +4,27 @@
     <insert id="addRankLevel">
         INSERT INTO `rank_level`
         (`score`, `level`, `icon`)
-        VALUES (#{score},#{level},#{icon})
+        VALUES (#{rankLevel.score},#{rankLevel.level},#{rankLevel.icon})
     </insert>
     <update id="updateLevel">
         UPDATE rank_level
-        SET `score` = #{score},
-            `level` = #{level},
-            `icon` = #{icon}
-        WHERE `id` = #{id}
+        SET `score` = #{rankLevel.score},
+            `level` = #{rankLevel.level},
+            `icon` = #{rankLevel.icon}
+        WHERE `id` = #{rankLevel.id}
     </update>
     <delete id="deleteLevel">
-        DELETE FROM `rank_level` WHERE `id` = #{id}
+        DELETE FROM `rank_level`
+        WHERE `id` = #{id}
     </delete>
     <select id="getRankLevel" resultType="com.hero.poetry.entity.RankLevel">
-        SELECT `id`,`score`,`level`,`icon` FROM `rank_level` ORDER BY `score` DESC
+        SELECT `id`,`score`,`level`,`icon`
+        FROM `rank_level`
+        ORDER BY `score` DESC
+    </select>
+    <select id="getRankLevelById" resultType="com.hero.poetry.entity.RankLevel">
+        SELECT `id`,`score`,`level`,`icon`
+        FROM `rank_level`
+        WHERE `id` = #{id}
     </select>
 </mapper>

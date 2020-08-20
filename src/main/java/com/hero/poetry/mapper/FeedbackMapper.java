@@ -12,5 +12,7 @@ public interface FeedbackMapper {
 
     Integer addFeedback(@Param("record") Feedback record);
 
-    List<Feedback> getAllFeedback();
+    List<Feedback> getAllFeedback(@Param("m") Integer m,@Param("n") Integer n,@Param("msg") String msg);
+
+    Integer getAllFeedbackTotal(@Param("msg") String msg);
 }

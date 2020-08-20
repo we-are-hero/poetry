@@ -6,14 +6,12 @@ import java.io.Serializable;
  * feedback
  * @author 
  */
-public class Feedback implements Serializable {
+public class Feedback {
     private Integer id;
 
     private String content;
 
-    private Integer phone;
-
-    private static final long serialVersionUID = 1L;
+    private String phone;
 
     public Integer getId() {
         return id;
@@ -31,11 +29,11 @@ public class Feedback implements Serializable {
         this.content = content;
     }
 
-    public Integer getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(Integer phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 }

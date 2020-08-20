@@ -9,7 +9,6 @@
     <update id="updateRankById">
         UPDATE `rank`
         SET `score` = #{rankDataVo.score}
-            `grade_id` = #{rankDataVo.gradeId}
         WHERE `id` = #{rankDataVo.id}
     </update>
     <update id="updateScoreByUserId">
@@ -31,10 +30,28 @@
         WHERE `rank`.`grade_id` = #{gradeId}
         GROUP BY `rank`.`score` DESC
     </select>
-    <select id="getRankById" resultType="com.hero.poetry.entity.dto.RankLadderDTO">
+    <select id="getRankLadderById" resultType="com.hero.poetry.entity.dto.RankLadderDTO">
         SELECT `rank`.`id`,`rank`.`score`,`rank`.`user_id`,`user`.`username`
         FROM `rank` LEFT JOIN `user` ON `rank`.`user_id`=`user`.`id`
         WHERE `rank`.`id` = #{id}
+    </select>
+    <select id="getAllScoreByGradeIdLimitPage" resultType="com.hero.poetry.entity.dto.RankLadderDTO">
+        SELECT `rank`.`id`,`rank`.`score`,`rank`.`user_id`,`user`.`username`
+        FROM `rank` LEFT JOIN `user` ON `rank`.`user_id`=`user`.`id`
+        WHERE `rank`.`grade_id` = #{gradeId}
+        <if test="msg != null and msg !=''">
+            AND `user`.`username` LIKE concat('%', #{msg}, '%')
+        </if>
+        GROUP BY `rank`.`score` DESC
+        LIMIT #{m},#{n}
+    </select>
+    <select id="getAllScoreByGradeIdLimitPageTotal" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM `rank` LEFT JOIN `user` ON `rank`.`user_id`=`user`.`id`
+        WHERE `rank`.`grade_id` = #{gradeId}
+        <if test="msg != null and msg !=''">
+            AND `user`.`username` LIKE concat('%', #{msg}, '%')
+        </if>
     </select>
 
 </mapper>
